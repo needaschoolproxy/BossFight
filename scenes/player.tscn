@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://cj3seshwyd1wo"]
+
+[ext_resource type="Script" uid="uid://dd58eiag3eho2" path="res://scenes/player.gd" id="1_g2els"]
+[ext_resource type="Texture2D" uid="uid://ca3rahja6g81n" path="res://assets/icon.svg" id="2_i3pqv"]
+[ext_resource type="Script" uid="uid://mlau8hsal33e" path="res://scenes/color_rect.gd" id="3_qhqgy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g2els"]
+size = Vector2(96, 104)
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_g2els")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_g2els")
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(-4.76837e-07, 4.76837e-07)
+scale = Vector2(0.875, 0.875)
+texture = ExtResource("2_i3pqv")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="DashTime" type="Timer" parent="."]
+wait_time = 0.15
+one_shot = true
+
+[node name="DashCooldownTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = 5
+offset_left = -571.0
+offset_top = 190.0
+offset_right = -507.0
+offset_bottom = 254.0
+scale = Vector2(2, 2)
+color = Color(0.431465, 0.498095, 0.568945, 1)
+script = ExtResource("3_qhqgy")
+
+[connection signal="timeout" from="DashTime" to="." method="_on_dash_time_timeout"]
+[connection signal="timeout" from="DashCooldownTimer" to="." method="_on_dash_cooldown_timer_timeout"]
