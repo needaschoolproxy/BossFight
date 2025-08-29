@@ -95,7 +95,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_amp1x"]
-radius = 385.818
+radius = 917.158
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 collision_layer = 2
@@ -111,12 +111,12 @@ shape = SubResource("CircleShape2D_gvwxj")
 position = Vector2(-0.75, -2)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_tdqbp")
-animation = &"spawn"
-autoplay = "spawn"
+animation = &"Idle"
+autoplay = "Idle"
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 target_position = Vector2(353, 0)
-collision_mask = 4
+collision_mask = 5
 
 [node name="FollowArea" type="Area2D" parent="."]
 
