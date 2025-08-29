@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cj3seshwyd1wo"]
+[gd_scene load_steps=27 format=3 uid="uid://cj3seshwyd1wo"]
 
 [ext_resource type="Script" uid="uid://dd58eiag3eho2" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://dncst6bg0adsa" path="res://assets/Sprite-0015.png" id="2_qhqgy"]
@@ -15,6 +15,26 @@ region = Rect2(576, 0, 64, 64)
 [sub_resource type="AtlasTexture" id="AtlasTexture_oprun"]
 atlas = ExtResource("2_qhqgy")
 region = Rect2(704, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a8ls1"]
+atlas = ExtResource("2_qhqgy")
+region = Rect2(768, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qfm1y"]
+atlas = ExtResource("2_qhqgy")
+region = Rect2(832, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fulsm"]
+atlas = ExtResource("2_qhqgy")
+region = Rect2(896, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4r5pv"]
+atlas = ExtResource("2_qhqgy")
+region = Rect2(832, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_60mlk"]
+atlas = ExtResource("2_qhqgy")
+region = Rect2(768, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qhqgy"]
 atlas = ExtResource("2_qhqgy")
@@ -79,6 +99,26 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_a8ls1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qfm1y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fulsm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4r5pv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_60mlk")
+}],
+"loop": true,
+"name": &"AttackUp",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_qhqgy")
 }, {
 "duration": 1.0,
@@ -132,7 +172,13 @@ animations = [{
 size = Vector2(96, 104)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f1ej7"]
-size = Vector2(35, 101)
+size = Vector2(32.25, 104)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qhqgy"]
+size = Vector2(32, 105)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dqkch"]
+size = Vector2(103, 63)
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 script = ExtResource("1_g2els")
@@ -141,7 +187,9 @@ script = ExtResource("1_g2els")
 position = Vector2(-1, -51)
 scale = Vector2(3.03125, 3.28125)
 sprite_frames = SubResource("SpriteFrames_tuyoq")
-animation = &"Attack2"
+animation = &"AttackUp"
+frame = 1
+frame_progress = 0.380947
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)
@@ -167,13 +215,29 @@ scale = Vector2(2, 2)
 color = Color(0.431465, 0.498095, 0.568945, 1)
 script = ExtResource("3_qhqgy")
 
-[node name="AttackArea" type="Area2D" parent="."]
+[node name="AttackArea_Right" type="Area2D" parent="."]
 collision_mask = 2
 monitoring = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
-position = Vector2(87.5, 5.5)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea_Right"]
+position = Vector2(80, 3)
 shape = SubResource("RectangleShape2D_f1ej7")
+
+[node name="AttackArea_Left" type="Area2D" parent="."]
+collision_mask = 2
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea_Left"]
+position = Vector2(-79, 2.5)
+shape = SubResource("RectangleShape2D_qhqgy")
+
+[node name="AttackArea_Up" type="Area2D" parent="."]
+collision_mask = 2
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea_Up"]
+position = Vector2(-0.5, 9.5)
+shape = SubResource("RectangleShape2D_dqkch")
 
 [connection signal="timeout" from="DashTime" to="." method="_on_dash_time_timeout"]
 [connection signal="timeout" from="DashCooldownTimer" to="." method="_on_dash_cooldown_timer_timeout"]
