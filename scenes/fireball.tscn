@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bbxovk7pemgq"]
 
-[ext_resource type="Script" path="res://scripts/fireball.gd" id="1_3s14c"]
+[ext_resource type="Script" uid="uid://smp5kidntxd4" path="res://scripts/fireball.gd" id="1_3s14c"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_3s14c"]
 
