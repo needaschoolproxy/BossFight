@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://bbxovk7pemgq"]
+
+[ext_resource type="Script" uid="uid://smp5kidntxd4" path="res://scripts/fireball.gd" id="1_3s14c"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_3s14c"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3s14c"]
+radius = 11.1803
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_3s14c"]
+load_path = "res://.godot/imported/fireball.png-ed7e398784db012da0948497b00257d1.ctex"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1gl40"]
+radius = 16.1245
+
+[node name="RigidBody2D" type="RigidBody2D"]
+collision_layer = 4
+collision_mask = 4
+physics_material_override = SubResource("PhysicsMaterial_3s14c")
+gravity_scale = 0.0
+script = ExtResource("1_3s14c")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_3s14c")
+
+[node name="Fireball" type="Sprite2D" parent="."]
+scale = Vector2(4, 4)
+texture = SubResource("CompressedTexture2D_3s14c")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_1gl40")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -2,50 +2,67 @@ extends CharacterBody2D
 
 @onready var character = get_parent().get_parent().get_node("Node2D2/CharacterBody2D")
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var hit_area: Area2D = $HitArea
+@onready var follow_area: Area2D = $FollowArea
+@onready var ray_cast_2d: RayCast2D = $RayCast2D
+@export var fireball = preload("res://scenes/fireball.tscn")
+@onready var attack_timer: Timer = $"Attack Timer"
+@onready var marker_2d: Marker2D = $Marker2D
 
-const SPEED = 200
-var health := 500
+var is_hurt = false
+const HURT_DURATION = 0.15
 var knockback_velocity := Vector2.ZERO
-const HURT_DURATION := 0.25
-var is_hurt := false
-var DAMAGE := 20
-var KNOCKBACK := 300.0
+const SPEED = 200
+var health := 100
+var player_position
+var target_position
+enum state {idle,follow,attack}
+var current_state = state.idle
 
-var hit_bodies := []
-
-func _ready():
-	hit_area.monitoring = true
-	if not hit_area.is_connected("body_entered", Callable(self, "_on_hit_area_body_entered")):
-		hit_area.connect("body_entered", Callable(self, "_on_hit_area_body_entered"))
-	if not hit_area.is_connected("body_exited", Callable(self, "_on_hit_area_body_exited")):
-		hit_area.connect("body_exited", Callable(self, "_on_hit_area_body_exited"))
-
-func _physics_process(delta: float) -> void:
-	if not character:
-		return
-
-	var direction = (character.global_position - global_position).normalized()
-	velocity = direction * SPEED
-
-	if knockback_velocity.length() > 10.0:
-		velocity = knockback_velocity
-		knockback_velocity = knockback_velocity.move_toward(Vector2.ZERO, 1000.0 * delta)
-	else:
-		knockback_velocity = Vector2.ZERO
-
-	move_and_slide()
-
-	if direction.x != 0:
-		sprite.flip_h = direction.x < 0
-
+func _physics_process(_delta: float) -> void:
+	look_at(character.position)
+	player_position = character.position
+	target_position = (player_position - position).normalized()
+	
 	if health <= 0:
 		queue_free()
 		return
+	
 
-	if not is_hurt and sprite.animation != "Idle":
-		sprite.play("Idle")
 
+func _process(_delta: float) -> void:
+	match current_state:
+		state.idle:
+			$AnimatedSprite2D.play("Idle")
+		state.follow:
+			$AnimatedSprite2D.play("spawn")
+			if position.distance_to(player_position) > 3:
+				velocity = target_position * SPEED
+				move_and_slide()
+		state.attack:
+			$AnimatedSprite2D.play("Attacking")
+			
+	
+	
+	if ray_cast_2d.is_colliding():
+		current_state = state.attack
+	else: if not follow_area.get_overlapping_bodies(): 
+		current_state = state.idle
+	else: current_state = state.follow
+
+func _on_follow_area_body_entered(_body: Node2D) -> void:
+	current_state = state.follow
+	
+func _on_follow_area_body_exited(_body: Node2D) -> void:
+	current_state = state.idle
+
+
+func _on_attack_timer_timeout() -> void:
+	if current_state == state.attack:
+		var newfireball = fireball.instantiate()
+		owner.add_child(newfireball)
+		newfireball.transform = $Marker2D.global_transform
+		
+		
 func take_damage(damage: int, knockback: Vector2) -> void:
 	health -= damage
 	knockback_velocity = knockback
@@ -54,7 +71,8 @@ func take_damage(damage: int, knockback: Vector2) -> void:
 		queue_free()
 		return
 
-	if sprite.sprite_frames and sprite.sprite_frames.has_animation("Hurt"):
+	var frames := sprite.sprite_frames
+	if frames and frames.has_animation("Hurt"):
 		is_hurt = true
 		sprite.play("Hurt")
 		await get_tree().create_timer(HURT_DURATION).timeout
@@ -66,13 +84,3 @@ func take_damage(damage: int, knockback: Vector2) -> void:
 		await get_tree().create_timer(HURT_DURATION).timeout
 		sprite.modulate = original_modulate
 		is_hurt = false
-
-func _on_hit_area_body_entered(body):
-	if body.has_method("take_damage") and not body in hit_bodies:
-		hit_bodies.append(body)
-		var knock_dir = (body.global_position - global_position).normalized()
-		body.take_damage(DAMAGE, knock_dir * KNOCKBACK)
-
-func _on_hit_area_body_exited(body):
-	if body in hit_bodies:
-		hit_bodies.erase(body)

@@ -33,10 +33,6 @@ func take_damage(damage: int, knockback: Vector2) -> void:
 	health -= damage
 	knockback_velocity = knockback
 
-	if health <= 0:
-		queue_free()
-		return
-
 	var frames := sprite.sprite_frames
 	if frames and frames.has_animation("Hurt"):
 		is_hurt = true
