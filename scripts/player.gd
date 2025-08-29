@@ -7,6 +7,7 @@ extends CharacterBody2D
 @onready var attack_left: Area2D = $AttackArea_Left
 @onready var attack_up: Area2D = $AttackArea_Up
 
+
 var SPEED := 450.0
 const JUMP_VELOCITY := -900.0
 const GRAVITY := 2000.0
@@ -52,7 +53,8 @@ func _ready():
 		key_event.scancode = RESET_KEY
 		InputMap.action_add_event("reset_game", key_event)
 
-func _process(delta: float) -> void:
+
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("reset_game"):
 		reset_game()
 	match current_state:
@@ -63,6 +65,7 @@ func _process(delta: float) -> void:
 		state.dash:
 			sprite.play("Dash")
 			set_collision_mask_value(2, false)
+			set_collision_layer_value(3, false)
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
@@ -162,7 +165,7 @@ func _on_dash_time_timeout() -> void:
 	dashing = false
 	current_state = state.idle
 	set_collision_mask_value(2, true)
-
+	set_collision_layer_value(3, true)
 func _on_dash_cooldown_timer_timeout() -> void:
 	can_dash = true
 
@@ -185,3 +188,6 @@ func take_damage(damage: int, knockback: Vector2):
 
 func reset_game():
 	get_tree().reload_current_scene()
+
+
+		

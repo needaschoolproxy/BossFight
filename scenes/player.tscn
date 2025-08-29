@@ -254,6 +254,7 @@ size = Vector2(103, 63)
 
 [node name="CharacterBody2D2" type="CharacterBody2D"]
 collision_layer = 5
+collision_mask = 3
 script = ExtResource("1_g2els")
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="."]
@@ -283,7 +284,7 @@ shape = SubResource("RectangleShape2D_g2els")
 
 [node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="."]
 z_index = 50
-position = Vector2(-517, 265)
+position = Vector2(-517, 249)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_4ni07")
 animation = &"on"

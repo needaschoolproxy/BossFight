@@ -2,11 +2,11 @@ extends CharacterBody2D
 
 @onready var character = get_parent().get_parent().get_node("Node2D2/CharacterBody2D")
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var follow_area: Area2D = $FollowArea
-@onready var ray_cast_2d: RayCast2D = $RayCast2D
+@onready var attack: RayCast2D = $Attack
 @export var fireball = preload("res://scenes/fireball.tscn")
 @onready var attack_timer: Timer = $"Attack Timer"
 @onready var marker_2d: Marker2D = $Marker2D
+@onready var follow: RayCast2D = $Follow
 
 var is_hurt = false
 const HURT_DURATION = 0.15
@@ -44,19 +44,14 @@ func _process(_delta: float) -> void:
 			
 	
 	
-	if ray_cast_2d.get_collider() == character:
+	if attack.get_collider() == character:
 		current_state = state.attack
-	else: if follow_area.overlaps_body(character): 
+	else: if follow.get_collider() == character:
 		current_state = state.follow
-	else: if follow_area.body_exited: 
+	else:
 		current_state = state.idle
 
 	
-func _on_follow_area_body_entered(_body: Node2D) -> void:
-	current_state = state.follow
-	
-func _on_follow_area_body_exited(_body: Node2D) -> void:
-	current_state = state.idle
 
 func take_damage(damage: int, knockback: Vector2) -> void:
 	health -= damage

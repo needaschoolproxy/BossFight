@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dx74a04rdac3q"]
+[gd_scene load_steps=15 format=3 uid="uid://dx74a04rdac3q"]
 
 [ext_resource type="Script" uid="uid://yc8wsfymxmvl" path="res://scripts/skullenemy.gd" id="1_gvwxj"]
 [ext_resource type="Texture2D" uid="uid://c8ojkxy2knl6w" path="res://assets/skull.png" id="1_pmc17"]
@@ -94,9 +94,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_amp1x"]
-radius = 917.158
-
 [node name="CharacterBody2D" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 2
@@ -114,15 +111,13 @@ sprite_frames = SubResource("SpriteFrames_tdqbp")
 animation = &"Idle"
 autoplay = "Idle"
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
+[node name="Attack" type="RayCast2D" parent="."]
 target_position = Vector2(353, 0)
 collision_mask = 5
 
-[node name="FollowArea" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FollowArea"]
-position = Vector2(-3, -2)
-shape = SubResource("CircleShape2D_amp1x")
+[node name="Follow" type="RayCast2D" parent="."]
+target_position = Vector2(603, 0)
+collision_mask = 5
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(28, 30)
@@ -132,6 +127,4 @@ wait_time = 0.75
 autostart = true
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
-[connection signal="body_entered" from="FollowArea" to="." method="_on_follow_area_body_entered"]
-[connection signal="body_exited" from="FollowArea" to="." method="_on_follow_area_body_exited"]
 [connection signal="timeout" from="Attack Timer" to="." method="_on_attack_timer_timeout"]
