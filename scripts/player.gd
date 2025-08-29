@@ -6,6 +6,7 @@ extends CharacterBody2D
 @onready var attack_right: Area2D = $AttackArea_Right
 @onready var attack_left: Area2D = $AttackArea_Left
 @onready var attack_up: Area2D = $AttackArea_Up
+@onready var attack_down: Area2D = $AttackArea_Down
 
 var SPEED := 450.0
 const JUMP_VELOCITY := -900.0
@@ -33,7 +34,6 @@ const HURT_DURATION := 0.25
 const DAMAGE_COOLDOWN := 0.5
 var can_take_damage := true
 
-
 enum state {idle, run, jump, attack, dash}
 var current_state := state.idle
 
@@ -42,15 +42,18 @@ const RESET_KEY := KEY_R
 
 var attack_offset_horizontal := Vector2(50, 0)
 var attack_offset_up := Vector2(-10, -50)
+var attack_offset_down := Vector2(0, 50)
 
 func _ready():
-	for area in [attack_right, attack_left, attack_up]:
+	for area in [attack_right, attack_left, attack_up, attack_down]:
 		area.monitoring = false
 	if not InputMap.has_action("reset_game"):
 		InputMap.add_action("reset_game")
 		var key_event := InputEventKey.new()
 		key_event.scancode = RESET_KEY
 		InputMap.action_add_event("reset_game", key_event)
+	if not sprite.is_connected("animation_finished", Callable(self, "_on_animation_finished")):
+		sprite.connect("animation_finished", Callable(self, "_on_animation_finished"))
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("reset_game"):
@@ -117,13 +120,17 @@ func start_attack():
 	can_attack = false
 	current_state = state.attack
 
-	for area in [attack_right, attack_left, attack_up]:
+	for area in [attack_right, attack_left, attack_up, attack_down]:
 		area.monitoring = false
 
 	if Input.is_action_pressed("up"):
 		sprite.play("AttackUp")
 		attack_up.monitoring = true
 		attack_up.position = attack_offset_up
+	elif Input.is_action_pressed("down") and not is_on_floor():
+		sprite.play("AttackDown")
+		attack_down.monitoring = true
+		attack_down.position = attack_offset_down
 	elif sprite.flip_h:
 		sprite.play("Attack" if attack_stage == 1 else "Attack2")
 		attack_left.monitoring = true
@@ -133,13 +140,13 @@ func start_attack():
 		attack_right.monitoring = true
 		attack_right.position = attack_offset_horizontal
 
-	for area in [attack_right, attack_left, attack_up]:
+	for area in [attack_right, attack_left, attack_up, attack_down]:
 		if not area.is_connected("body_entered", Callable(self, "_on_attack_area_body_entered")):
 			area.connect("body_entered", Callable(self, "_on_attack_area_body_entered"))
 
 	await get_tree().create_timer(0.1).timeout
 
-	for area in [attack_right, attack_left, attack_up]:
+	for area in [attack_right, attack_left, attack_up, attack_down]:
 		area.monitoring = false
 
 	attacking = false
@@ -151,8 +158,17 @@ func start_attack():
 func _on_attack_area_body_entered(body):
 	if body.has_method("take_damage"):
 		var knock_dir := -1 if sprite.flip_h else 1
-		body.take_damage(ATTACK_DAMAGE, Vector2(knock_dir * ATTACK_KNOCKBACK, -200))
-		velocity.x = -knock_dir * 100
+		if attack_up.monitoring or attack_left.monitoring or attack_right.monitoring:
+			body.take_damage(ATTACK_DAMAGE, Vector2(knock_dir * ATTACK_KNOCKBACK, -200))
+			velocity.x = -knock_dir * 100
+		elif attack_down.monitoring:
+			body.take_damage(ATTACK_DAMAGE, Vector2(0, 200))
+			velocity.y = JUMP_VELOCITY * 10
+
+func _on_animation_finished():
+	var anim_name := sprite.animation
+	if attacking and (anim_name == "Attack" or anim_name == "Attack2" or anim_name == "AttackUp" or anim_name == "AttackDown"):
+		sprite.play(anim_name)
 
 func trigger_jump_anim():
 	jumping = true
