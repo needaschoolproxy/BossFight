@@ -11,11 +11,9 @@ const GRAVITY = 2000.0
 const FAST_FALL_MULTIPLIER = 2.0
 const JUMP_CUT_MULTIPLIER = 0.5
 var doublejumped = false
-
 const DASH_SPEED = 1200
 var dashing = false
 var can_dash = true
-
 var attacking = false
 var ATTACK_DAMAGE = 20
 var ATTACK_KNOCKBACK = 400.0
@@ -24,16 +22,32 @@ const ATTACK_COOLDOWN = 0.5
 
 var jumping = false
 
-func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed("attack") and not attacking and can_attack:
-		start_attack()
+enum state {idle,run,jump,attack,dash}
+var current_state = state.idle
+
+func _process(delta: float) -> void:
+	match current_state:
+		state.idle:
+			sprite.play("Idle")
+		state.run:
+			sprite.play("MoveLeftRight")
+		state.jump:
+			sprite.play("Jump")
+		state.attack:
+			sprite.play("Attack")
+		state.dash:
+			sprite.play("Dash")
+			set_collision_mask_value(2,false)
 
 	if not is_on_floor():
 		if velocity.y > 0:
 			velocity.y += GRAVITY * FAST_FALL_MULTIPLIER * delta
 		else:
 			velocity.y += GRAVITY * delta
-	else:
+		current_state = state.jump
+	else: 
+		doublejumped = false
+		current_state = state.idle
 		velocity.y = 0
 		if jumping:
 			jumping = false
@@ -41,20 +55,16 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("jump"):
 		if is_on_floor():
 			velocity.y = JUMP_VELOCITY
-			trigger_jump_anim()
 		elif not doublejumped:
 			velocity.y = JUMP_VELOCITY
 			doublejumped = true
-			trigger_jump_anim()
 
 	if not Input.is_action_pressed("jump") and velocity.y < 0:
 		velocity.y *= JUMP_CUT_MULTIPLIER
 
-	if is_on_floor():
-		doublejumped = false
-
 	var direction := Input.get_axis("left", "right")
 	if direction != 0:
+		current_state = state.run
 		if dashing:
 			velocity.x = direction * DASH_SPEED
 		else:
@@ -63,62 +73,18 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED * 2 * delta)
 
-	if attacking:
-		if sprite.animation != "Attack":
-			sprite.play("Attack")
-	elif dashing:
-		if sprite.animation != "Dash":
-			sprite.play("Dash")
-	elif jumping:
-		if sprite.animation != "Jump":
-			sprite.play("Jump")
-	elif direction != 0:
-		if sprite.animation != "MoveLeftRight":
-			sprite.play("MoveLeftRight")
-	else:
-		if sprite.animation != "Idle":
-			sprite.play("Idle")
-
 	if Input.is_action_just_pressed("dash") and can_dash and not attacking:
 		dashing = true
 		can_dash = false
 		dash_time.start()
 		dash_cooldown_timer.start()
-
+		current_state = state.dash
 	move_and_slide()
-
-func start_attack():
-	attacking = true
-	can_attack = false
-	attack_area.monitoring = true
-	$AttackArea/CollisionShape2D.disabled = false
-
-	if not attack_area.is_connected("body_entered", Callable(self, "_on_attack_area_body_entered")):
-		attack_area.connect("body_entered", Callable(self, "_on_attack_area_body_entered"))
-
-	await get_tree().create_timer(0.1).timeout
-	attack_area.monitoring = false
-	$AttackArea/CollisionShape2D.disabled = true
-
-	attacking = false
-
-	await get_tree().create_timer(ATTACK_COOLDOWN).timeout
-	can_attack = true
-
-func _on_attack_area_body_entered(body):
-	if body.has_method("take_damage"):
-		var knock_dir = -1 if sprite.flip_h else 1
-		body.take_damage(ATTACK_DAMAGE, Vector2(knock_dir * ATTACK_KNOCKBACK, -200))
-
-		velocity.x = -knock_dir * 100
-
-func trigger_jump_anim():
-	jumping = true
-	if sprite.animation != "Jump":
-		sprite.play("Jump")
 
 func _on_dash_time_timeout() -> void:
 	dashing = false
+	current_state = state.idle
+	set_collision_mask_value(2,true)
 
 func _on_dash_cooldown_timer_timeout() -> void:
 	can_dash = true

@@ -1,8 +1,8 @@
 [gd_scene load_steps=19 format=3 uid="uid://cj3seshwyd1wo"]
 
-[ext_resource type="Script" uid="uid://dd58eiag3eho2" path="res://scenes/player.gd" id="1_g2els"]
+[ext_resource type="Script" uid="uid://dd58eiag3eho2" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://dncst6bg0adsa" path="res://assets/Sprite-0015.png" id="2_qhqgy"]
-[ext_resource type="Script" uid="uid://mlau8hsal33e" path="res://scenes/color_rect.gd" id="3_qhqgy"]
+[ext_resource type="Script" uid="uid://mlau8hsal33e" path="res://scripts/color_rect.gd" id="3_qhqgy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3v2ag"]
 atlas = ExtResource("2_qhqgy")
@@ -130,6 +130,8 @@ position = Vector2(-1, -51)
 scale = Vector2(3.03125, 3.28125)
 sprite_frames = SubResource("SpriteFrames_tuyoq")
 animation = &"Attack"
+frame = 1
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)
@@ -138,7 +140,7 @@ shape = SubResource("RectangleShape2D_g2els")
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="DashTime" type="Timer" parent="."]
-wait_time = 0.15
+wait_time = 0.2
 one_shot = true
 
 [node name="DashCooldownTimer" type="Timer" parent="."]

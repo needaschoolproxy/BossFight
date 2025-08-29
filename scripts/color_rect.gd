@@ -4,7 +4,7 @@ extends ColorRect
 
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if character_body_2d.can_dash == true:
 		self_modulate = Color(0,1,2)
 	else: self_modulate = Color(2,2,3)
