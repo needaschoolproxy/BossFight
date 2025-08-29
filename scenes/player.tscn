@@ -4,10 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://dncst6bg0adsa" path="res://assets/Sprite-0015.png" id="2_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://cm7s4vfo15hpt" path="res://assets/emptybar.png" id="2_qlg0r"]
 [ext_resource type="Texture2D" uid="uid://b642nkuugeh6t" path="res://assets/fullbar.png" id="3_tuyoq"]
-[ext_resource type="Script" path="res://scripts/texture_progress_bar.gd" id="4_tuyoq"]
+[ext_resource type="Script" uid="uid://fjtjwppcjr50" path="res://scripts/texture_progress_bar.gd" id="4_tuyoq"]
 [ext_resource type="Texture2D" uid="uid://cck7jx72xick" path="res://assets/dashempty.png" id="6_fjrip"]
 [ext_resource type="Texture2D" uid="uid://ve4ji7ap8y8u" path="res://assets/dashfull.png" id="7_smehm"]
-[ext_resource type="Script" path="res://scenes/animated_sprite_2d_2.gd" id="8_smehm"]
+[ext_resource type="Script" uid="uid://5psld3y3pkmn" path="res://scripts/animated_sprite_2d_2.gd" id="8_smehm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3v2ag"]
 atlas = ExtResource("2_qhqgy")
@@ -140,7 +140,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"AttackDown",
-"speed": 30.0
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -273,7 +273,7 @@ position = Vector2(-1, -51)
 scale = Vector2(3.03125, 3.28125)
 sprite_frames = SubResource("SpriteFrames_tuyoq")
 animation = &"AttackDown"
-frame_progress = 0.898378
+frame_progress = 0.750024
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)

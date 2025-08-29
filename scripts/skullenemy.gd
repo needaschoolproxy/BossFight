@@ -44,9 +44,9 @@ func _process(_delta: float) -> void:
 			
 	
 	
-	if ray_cast_2d.is_colliding():
+	if ray_cast_2d.get_collider() == character:
 		current_state = state.attack
-	else: if follow_area.body_entered: 
+	else: if follow_area.overlaps_body(character): 
 		current_state = state.follow
 	else: if follow_area.body_exited: 
 		current_state = state.idle
