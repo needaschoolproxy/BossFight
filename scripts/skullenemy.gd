@@ -27,8 +27,6 @@ func _physics_process(_delta: float) -> void:
 		queue_free()
 		return
 	
-	if position.x > character.position.x:
-		$AnimatedSprite2D.flip_v
 
 func _process(_delta: float) -> void:
 	match current_state:

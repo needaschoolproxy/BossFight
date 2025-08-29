@@ -139,7 +139,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"AttackDown",
-"speed": 15.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -276,7 +276,7 @@ position = Vector2(-1, -51)
 scale = Vector2(3.03125, 3.28125)
 sprite_frames = SubResource("SpriteFrames_tuyoq")
 animation = &"AttackDown"
-frame_progress = 0.778566
+frame_progress = 0.381357
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)
