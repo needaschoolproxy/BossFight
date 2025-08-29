@@ -27,7 +27,8 @@ func _physics_process(_delta: float) -> void:
 		queue_free()
 		return
 	
-
+	if position.x > character.position.x:
+		$AnimatedSprite2D.flip_v
 
 func _process(_delta: float) -> void:
 	match current_state:
@@ -45,32 +46,22 @@ func _process(_delta: float) -> void:
 	
 	if ray_cast_2d.is_colliding():
 		current_state = state.attack
-	else: if not follow_area.get_overlapping_bodies(): 
+	else: if follow_area.body_entered: 
+		current_state = state.follow
+	else: if follow_area.body_exited: 
 		current_state = state.idle
-	else: current_state = state.follow
 
+	
 func _on_follow_area_body_entered(_body: Node2D) -> void:
 	current_state = state.follow
 	
 func _on_follow_area_body_exited(_body: Node2D) -> void:
 	current_state = state.idle
 
-
-func _on_attack_timer_timeout() -> void:
-	if current_state == state.attack:
-		var newfireball = fireball.instantiate()
-		owner.add_child(newfireball)
-		newfireball.transform = $Marker2D.global_transform
-		
-		
 func take_damage(damage: int, knockback: Vector2) -> void:
 	health -= damage
 	knockback_velocity = knockback
-
-	if health <= 0:
-		queue_free()
-		return
-
+	
 	var frames := sprite.sprite_frames
 	if frames and frames.has_animation("Hurt"):
 		is_hurt = true
@@ -84,3 +75,10 @@ func take_damage(damage: int, knockback: Vector2) -> void:
 		await get_tree().create_timer(HURT_DURATION).timeout
 		sprite.modulate = original_modulate
 		is_hurt = false
+
+func _on_attack_timer_timeout() -> void:
+	if current_state == state.attack:
+		var newfireball = fireball.instantiate()
+		owner.add_child(newfireball)
+		newfireball.transform = $Marker2D.global_transform
+		

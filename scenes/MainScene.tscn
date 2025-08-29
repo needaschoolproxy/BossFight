@@ -70,7 +70,7 @@ sources/0 = SubResource("TileSetAtlasSource_c6dvc")
 [node name="Node2D2" type="Node2D"]
 
 [node name="CharacterBody2D" parent="." groups=["Player"] instance=ExtResource("1_echbf")]
-position = Vector2(-1022, -278)
+position = Vector2(-1173, -267)
 
 [node name="Enemy" parent="." instance=ExtResource("3_c6dvc")]
 position = Vector2(107, -138)
@@ -81,4 +81,4 @@ tile_map_data = PackedByteArray("AAD3//7/AAAFAAEAAAD4//7/AAAEAAAAAAD5//7/AAAEAAA
 tile_set = SubResource("TileSet_echbf")
 
 [node name="SkulEnemy" parent="." instance=ExtResource("4_611at")]
-position = Vector2(-662, -339)
+position = Vector2(46, -364)

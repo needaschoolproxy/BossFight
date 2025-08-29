@@ -125,9 +125,10 @@ position = Vector2(-3, -2)
 shape = SubResource("CircleShape2D_amp1x")
 
 [node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(28, 27)
+position = Vector2(28, 30)
 
 [node name="Attack Timer" type="Timer" parent="."]
+wait_time = 0.75
 autostart = true
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

@@ -24,15 +24,15 @@ const ATTACK_COOLDOWN := 0.2
 var jumping := false
 var attack_stage := 1
 
-var max_health := 500
-var health := 500
-var displayed_health := 500
+var max_health := 100
+var health := 100
+var displayed_health := 100
 var is_hurt := false
 var knockback_velocity := Vector2.ZERO
 const HURT_DURATION := 0.25
 const DAMAGE_COOLDOWN := 0.5
 var can_take_damage := true
-const HP_INTERPOLATION_SPEED := 10.0
+
 
 enum state {idle, run, jump, attack, dash}
 var current_state := state.idle
@@ -46,7 +46,6 @@ var attack_offset_up := Vector2(-10, -50)
 func _ready():
 	for area in [attack_right, attack_left, attack_up]:
 		area.monitoring = false
-	_create_hp_bar()
 	if not InputMap.has_action("reset_game"):
 		InputMap.add_action("reset_game")
 		var key_event := InputEventKey.new()
@@ -54,8 +53,6 @@ func _ready():
 		InputMap.action_add_event("reset_game", key_event)
 
 func _process(delta: float) -> void:
-	displayed_health = lerp(displayed_health, health, delta * HP_INTERPOLATION_SPEED)
-	update_hp_bar()
 	if Input.is_action_just_pressed("reset_game"):
 		reset_game()
 	match current_state:
@@ -186,30 +183,5 @@ func take_damage(damage: int, knockback: Vector2):
 
 	if health <= 0: reset_game()
 
-func update_hp_bar():
-	if hp_bar: hp_bar.value = displayed_health
-
 func reset_game():
 	get_tree().reload_current_scene()
-
-func _create_hp_bar():
-	var canvas_layer := CanvasLayer.new()
-	add_child(canvas_layer)
-	canvas_layer.layer = 1
-
-	hp_bar = ProgressBar.new()
-	canvas_layer.add_child(hp_bar)
-	hp_bar.min_value = 0
-	hp_bar.max_value = max_health
-	hp_bar.value = health
-	hp_bar.size = Vector2(200, 20)
-	hp_bar.position = Vector2(20, 20)
-
-	var style_bg := StyleBoxFlat.new()
-	style_bg.bg_color = Color(0.2, 0.2, 0.2)
-	hp_bar.add_theme_stylebox_override("bg", style_bg)
-
-	var style_fg := StyleBoxFlat.new()
-	style_fg.bg_color = Color(0, 1, 0)
-	hp_bar.add_theme_stylebox_override("fg", style_fg)
-	hp_bar.add_theme_color_override("border_color", Color(1, 1, 1))
