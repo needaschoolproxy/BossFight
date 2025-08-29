@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
-var health := 300
+var health := 3000
 var knockback_velocity := Vector2.ZERO
 const GRAVITY := 2000.0
 const HURT_DURATION := 0.25
