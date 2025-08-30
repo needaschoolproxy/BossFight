@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c44q2xkfjufp6" path="res://assets/terrain.png" id="2_ibiss"]
 [ext_resource type="PackedScene" uid="uid://cvwomjshaa7sm" path="res://scenes/enemy.tscn" id="3_c6dvc"]
 [ext_resource type="PackedScene" uid="uid://dx74a04rdac3q" path="res://scenes/skullenemy.tscn" id="4_611at"]
-[ext_resource type="PackedScene" uid="uid://ejyhsof48xyh" path="res://scenes/argis.tscn" id="5_k24pf"]
+[ext_resource type="PackedScene" path="res://scenes/argis.tscn" id="5_k24pf"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c6dvc"]
 texture = ExtResource("2_ibiss")
