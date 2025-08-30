@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://cj3seshwyd1wo"]
+[gd_scene load_steps=41 format=3 uid="uid://cj3seshwyd1wo"]
 
 [ext_resource type="Script" uid="uid://dd58eiag3eho2" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://dncst6bg0adsa" path="res://assets/Sprite-0015.png" id="2_qhqgy"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://fjtjwppcjr50" path="res://scripts/texture_progress_bar.gd" id="4_tuyoq"]
 [ext_resource type="Texture2D" uid="uid://cck7jx72xick" path="res://assets/dashempty.png" id="6_fjrip"]
 [ext_resource type="Texture2D" uid="uid://ve4ji7ap8y8u" path="res://assets/dashfull.png" id="7_smehm"]
+[ext_resource type="Script" uid="uid://5psld3y3pkmn" path="res://scripts/animated_sprite_2d_2.gd" id="8_smehm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3v2ag"]
 atlas = ExtResource("2_qhqgy")
@@ -137,9 +138,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_31cv2")
 }],
-"loop": true,
+"loop": false,
 "name": &"AttackDown",
-"speed": 5.0
+"speed": 50.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -243,13 +244,13 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f1ej7"]
-size = Vector2(21.125, 104)
+size = Vector2(37.125, 104)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qhqgy"]
-size = Vector2(23, 105)
+size = Vector2(35, 105)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dqkch"]
-size = Vector2(149, 63)
+size = Vector2(177, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_smehm"]
 size = Vector2(112, 32)
@@ -276,7 +277,6 @@ position = Vector2(-1, -51)
 scale = Vector2(3.03125, 3.28125)
 sprite_frames = SubResource("SpriteFrames_tuyoq")
 animation = &"AttackDown"
-frame_progress = 0.381357
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)
@@ -290,6 +290,7 @@ position = Vector2(-517, 249)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_4ni07")
 animation = &"on"
+script = ExtResource("8_smehm")
 
 [node name="DashTime" type="Timer" parent="."]
 wait_time = 0.2
@@ -304,7 +305,7 @@ collision_mask = 2
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea_Right"]
-position = Vector2(62.4375, 4)
+position = Vector2(70.4375, 4)
 shape = SubResource("RectangleShape2D_f1ej7")
 
 [node name="AttackArea_Left" type="Area2D" parent="."]
@@ -312,18 +313,20 @@ collision_mask = 2
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea_Left"]
-position = Vector2(-64.5, 3)
+position = Vector2(-70.5, 3)
 shape = SubResource("RectangleShape2D_qhqgy")
 
 [node name="AttackArea_Up" type="Area2D" parent="."]
+position = Vector2(0, -92)
 collision_mask = 2
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea_Up"]
-position = Vector2(-1.5, 9.5)
+position = Vector2(0.5, 31)
 shape = SubResource("RectangleShape2D_dqkch")
 
 [node name="AttackArea_Down" type="Area2D" parent="."]
+position = Vector2(0, 31)
 collision_mask = 2
 monitoring = false
 

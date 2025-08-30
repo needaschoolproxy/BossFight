@@ -41,10 +41,6 @@ var current_state := state.idle
 var hp_bar: ProgressBar = null
 const RESET_KEY := KEY_R
 
-var attack_offset_horizontal := Vector2(50, 0)
-var attack_offset_up := Vector2(-10, -50)
-var attack_offset_down := Vector2(0, 50)
-
 func _ready():
 	for area in [attack_right, attack_left, attack_up, attack_down]:
 		area.monitoring = false
@@ -129,25 +125,21 @@ func start_attack():
 	if Input.is_action_pressed("up"):
 		sprite.play("AttackUp")
 		attack_up.monitoring = true
-		attack_up.position = attack_offset_up
 	elif Input.is_action_pressed("down") and not is_on_floor():
 		sprite.play("AttackDown")
 		attack_down.monitoring = true
-		attack_down.position = attack_offset_down
 	elif sprite.flip_h:
 		sprite.play("Attack" if attack_stage == 1 else "Attack2")
 		attack_left.monitoring = true
-		attack_left.position = -attack_offset_horizontal
 	else:
 		sprite.play("Attack" if attack_stage == 1 else "Attack2")
 		attack_right.monitoring = true
-		attack_right.position = attack_offset_horizontal
 
 	for area in [attack_right, attack_left, attack_up, attack_down]:
 		if not area.is_connected("body_entered", Callable(self, "_on_attack_area_body_entered")):
 			area.connect("body_entered", Callable(self, "_on_attack_area_body_entered"))
 
-	await get_tree().create_timer(0.1).timeout
+	await get_tree().create_timer(0.12).timeout
 
 	for area in [attack_right, attack_left, attack_up, attack_down]:
 		area.monitoring = false
@@ -204,6 +196,3 @@ func take_damage(damage: int, knockback: Vector2):
 
 func reset_game():
 	get_tree().reload_current_scene()
-
-
-		

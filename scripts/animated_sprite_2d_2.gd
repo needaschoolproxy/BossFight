@@ -6,4 +6,5 @@ extends AnimatedSprite2D
 func _process(_delta: float) -> void:
 	if character_body_2d.can_dash == true:
 		animated_sprite_2d_2.play("on")
-	else: animated_sprite_2d_2.play("off")
+	else: if character_body_2d.can_dash == false:
+		animated_sprite_2d_2.play("off")
