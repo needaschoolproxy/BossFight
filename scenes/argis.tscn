@@ -318,10 +318,6 @@ collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_eqhmj")
 
-[node name="GroundWaveTimer" type="Timer" parent="."]
-wait_time = 0.1
-one_shot = true
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_n881m")
@@ -338,10 +334,10 @@ position = Vector2(0, -21)
 shape = SubResource("RectangleShape2D_n5l56")
 
 [node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(120, 80)
+position = Vector2(120, 94)
 
 [node name="Marker2D2" type="Marker2D" parent="."]
-position = Vector2(-120, 80)
+position = Vector2(-120, 94)
 
 [node name="Area2D" type="Area2D" parent="."]
 
@@ -349,6 +345,5 @@ position = Vector2(-120, 80)
 position = Vector2(0, 86)
 shape = SubResource("CircleShape2D_eqhmj")
 
-[connection signal="timeout" from="GroundWaveTimer" to="." method="_on_ground_wave_timer_timeout"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

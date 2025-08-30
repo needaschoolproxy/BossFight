@@ -1,13 +1,29 @@
 extends RigidBody2D
 
-const SPEED = 500
-@onready var character_body_2d: CharacterBody2D = $"../CharacterBody2D"
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
+@onready var collision_polygon_2d: CollisionPolygon2D = $Area2D/CollisionPolygon2D
+@onready var groundwave: Sprite2D = $Groundwave
 
+const SPEED = 500
+var flip = false
+
+func _ready() -> void:
+	if flip == true:
+		flipped()
 
 func _process(delta: float) -> void:
-	position += transform.x * SPEED * delta
+	if flip == true:
+		position += transform.x * -SPEED * delta
+	else: position += transform.x * SPEED * delta
 
+
+	
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
-		character_body_2d.health -= 8
+		pass
 	queue_free()
+
+func flipped():
+	collision_shape_2d.position.x *= -1
+	collision_polygon_2d.position.x *= -1
+	groundwave.flip_h

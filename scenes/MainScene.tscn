@@ -71,7 +71,7 @@ sources/0 = SubResource("TileSetAtlasSource_c6dvc")
 [node name="Node2D2" type="Node2D"]
 
 [node name="CharacterBody2D" parent="." groups=["Player"] instance=ExtResource("1_echbf")]
-position = Vector2(-1173, -267)
+position = Vector2(1208, -383)
 
 [node name="Enemy" parent="." instance=ExtResource("3_c6dvc")]
 position = Vector2(107, -138)
