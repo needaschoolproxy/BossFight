@@ -6,7 +6,7 @@ extends CharacterBody2D
 @onready var attack_timer: Timer = $"Attack Timer"
 @onready var marker: Marker2D = $Marker2D
 @onready var follow: RayCast2D = $Follow
-var health := 100
+var health := 150
 var is_hurt := false
 var knockback := Vector2.ZERO
 const SPEED := 200
@@ -18,7 +18,7 @@ func _physics_process(delta: float) -> void:
 	if health <= 0: return queue_free()
 	if knockback.length() > 10:
 		velocity = knockback
-		knockback = knockback.move_toward(Vector2.ZERO, 600 * delta)
+		knockback = knockback.move_toward(Vector2.ZERO, 800 * delta)
 	else:
 		match state:
 			State.FOLLOW: velocity = (character.position - position).normalized() * SPEED

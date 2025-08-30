@@ -253,7 +253,7 @@ size = Vector2(35, 105)
 size = Vector2(177, 31)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_smehm"]
-size = Vector2(112, 32)
+size = Vector2(112, 44)
 
 [node name="CharacterBody2D2" type="CharacterBody2D"]
 collision_layer = 5
@@ -331,7 +331,7 @@ collision_mask = 2
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea_Down"]
-position = Vector2(-1, 41)
+position = Vector2(-1, 11)
 shape = SubResource("RectangleShape2D_smehm")
 
 [connection signal="timeout" from="DashTime" to="." method="_on_dash_time_timeout"]

@@ -112,11 +112,11 @@ animation = &"Idle"
 autoplay = "Idle"
 
 [node name="Attack" type="RayCast2D" parent="."]
-target_position = Vector2(353, 0)
+target_position = Vector2(441, 0)
 collision_mask = 5
 
 [node name="Follow" type="RayCast2D" parent="."]
-target_position = Vector2(603, 0)
+target_position = Vector2(704, 0)
 collision_mask = 5
 
 [node name="Marker2D" type="Marker2D" parent="."]

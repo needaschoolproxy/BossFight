@@ -1,6 +1,6 @@
 [gd_scene load_steps=46 format=3 uid="uid://ejyhsof48xyh"]
 
-[ext_resource type="Script" uid="uid://gg27c6sxp2uj" path="res://scripts/argis.gd" id="1_eqhmj"]
+[ext_resource type="Script" uid="uid://gg27c6sxp2uj" path="res://scenes/argis.gd" id="1_eqhmj"]
 [ext_resource type="Texture2D" uid="uid://c148ap4syhcx0" path="res://assets/Argisspritesheet.png" id="1_n5l56"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8apko"]
@@ -311,7 +311,7 @@ size = Vector2(80, 84)
 size = Vector2(8, 130)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eqhmj"]
-radius = 503.672
+radius = 602.14
 
 [node name="ARGIS" type="CharacterBody2D"]
 collision_layer = 2
@@ -319,8 +319,7 @@ collision_mask = 2
 script = ExtResource("1_eqhmj")
 
 [node name="GroundWaveTimer" type="Timer" parent="."]
-wait_time = 0.1
-one_shot = true
+wait_time = 5.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(4, 4)
@@ -337,18 +336,11 @@ shape = SubResource("RectangleShape2D_eqhmj")
 position = Vector2(0, -21)
 shape = SubResource("RectangleShape2D_n5l56")
 
-[node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(120, 80)
-
-[node name="Marker2D2" type="Marker2D" parent="."]
-position = Vector2(-120, 80)
-
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, 86)
 shape = SubResource("CircleShape2D_eqhmj")
 
-[connection signal="timeout" from="GroundWaveTimer" to="." method="_on_ground_wave_timer_timeout"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
