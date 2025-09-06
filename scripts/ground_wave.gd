@@ -26,4 +26,4 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 func flipped():
 	collision_shape_2d.position.x *= -1
 	collision_polygon_2d.position.x *= -1
-	groundwave.flip_h
+	self.flip_h = true

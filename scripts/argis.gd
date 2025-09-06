@@ -21,10 +21,11 @@ func _process(_delta: float) -> void:
 		state.signaling:
 			animated_sprite_2d.play("Signal")
 	
-	if animated_sprite_2d.animation == ("retract") and animated_sprite_2d.frame == 5 and retracted == false:
+	if animated_sprite_2d.animation == ("retract") and animated_sprite_2d.frame == 10 and retracted == false:
 		var new_wave = groundwave.instantiate()
 		add_child(new_wave)
 		new_wave.transform = $Marker2D.transform
+		new_wave.flip = false
 		retracted = true
 	
 		
