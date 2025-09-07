@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://r54vgnokvpri"]
+
+[ext_resource type="Texture2D" uid="uid://ca3rahja6g81n" path="res://assets/icon.svg" id="1_k2dum"]
+[ext_resource type="Script" uid="uid://cmh28qgyqblp5" path="res://scripts/lightning.gd" id="1_n7g4i"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n7g4i"]
+size = Vector2(22, 501)
+
+[node name="Area2D" type="Area2D"]
+script = ExtResource("1_n7g4i")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -250.5)
+shape = SubResource("RectangleShape2D_n7g4i")
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(1.96695e-06, -251.5)
+scale = Vector2(0.203125, 3.92969)
+texture = ExtResource("1_k2dum")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(0, -4)
+target_position = Vector2(0, 4)

@@ -31,6 +31,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		state = State.IDLE
 	sprite.play(["Idle","spawn","Attacking"][state])
+	
 func take_damage(dmg: int, kb: Vector2) -> void:
 	health -= dmg
 	knockback = kb
