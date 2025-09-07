@@ -37,9 +37,10 @@ func _process(_delta: float) -> void:
 	
 	if animated_sprite_2d.animation == ("lightning") and animated_sprite_2d.frame == 11 and lightninged == false:
 		var new_lightning = lightning.instantiate()
-		get_parent().add_child(new_lightning)
-		new_lightning.position.x = position.x + randf_range(-500,500)
-		new_lightning.position.y = position.y + 125
+		for i in 3:
+			owner.add_child(new_lightning)
+			new_lightning.position.x = position.x + randf_range(-500,500)
+			new_lightning.position.y = position.y + 125
 		lightninged = true
 		
 func _on_area_2d_body_entered(_body: Node2D) -> void:
