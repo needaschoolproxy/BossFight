@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://cckilbnu307qv"]
+[gd_scene load_steps=4 format=3 uid="uid://cckilbnu307qv"]
 
 [ext_resource type="Texture2D" uid="uid://ca3rahja6g81n" path="res://assets/icon.svg" id="1_dil0n"]
+[ext_resource type="Script" uid="uid://68bqg76n7rsg" path="res://scripts/drone.gd" id="1_knnud"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_knnud"]
 size = Vector2(117, 117)
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="Drone" type="CharacterBody2D"]
+script = ExtResource("1_knnud")
 
 [node name="Icon" type="Sprite2D" parent="."]
 texture = ExtResource("1_dil0n")

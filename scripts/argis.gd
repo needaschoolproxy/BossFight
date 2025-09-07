@@ -4,13 +4,14 @@ extends CharacterBody2D
 @onready var marker_2d_2: Marker2D = $Marker2D2
 @onready var lightningcooldown: Timer = $lightningcooldown
 
+
 var groundwave = preload("res://scenes/ground_wave.tscn")
 var lightning = preload("res://scenes/lightning.tscn")
 enum state{idle,retract,lightning,glow,signaling}
 var current_state = state.idle
 var retracted = false
 var lightninged = false
-var health = 500
+var health = 1000
 var is_hurt = false
 const HURT_DURATION = 0.1
 
@@ -37,14 +38,14 @@ func _process(_delta: float) -> void:
 	
 	if animated_sprite_2d.animation == ("lightning") and animated_sprite_2d.frame == 11 and lightninged == false:
 		var new_lightning = lightning.instantiate()
-		for i in 3:
-			owner.add_child(new_lightning)
-			new_lightning.position.x = position.x + randf_range(-500,500)
-			new_lightning.position.y = position.y + 125
+		owner.add_child(new_lightning)
+		new_lightning.position.x = position.x + randf_range(-500,500)
+		new_lightning.position.y = position.y + 125
 		lightninged = true
 		
 func _on_area_2d_body_entered(_body: Node2D) -> void:
 	current_state = state.retract
+	
 
 
 func _on_animated_sprite_2d_animation_finished() -> void:

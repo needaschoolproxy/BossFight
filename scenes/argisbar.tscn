@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://c3esguxjka6nk"]
+
+[ext_resource type="Texture2D" uid="uid://4lccmy0kur7n" path="res://assets/argishealthempty.png" id="1_gan71"]
+[ext_resource type="Texture2D" uid="uid://cqloosaokkkxr" path="res://assets/argishealth.png" id="2_vvpra"]
+[ext_resource type="Script" uid="uid://cuul58l8locbl" path="res://scripts/bossbar.gd" id="3_cauld"]
+
+[node name="TextureProgressBar" type="TextureProgressBar"]
+z_index = 5
+offset_left = -93.0
+offset_top = -5.0
+offset_right = 92.0
+offset_bottom = 7.0
+max_value = 1000.0
+value = 1000.0
+texture_progress = ExtResource("2_vvpra")
+script = ExtResource("3_cauld")
+
+[node name="Argishealthempty" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(93, 5)
+texture = ExtResource("1_gan71")
