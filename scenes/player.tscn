@@ -262,11 +262,11 @@ script = ExtResource("1_g2els")
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="."]
 z_index = 50
-offset_left = -494.0
-offset_top = 249.0
-offset_right = -417.0
-offset_bottom = 261.0
-scale = Vector2(4, 4)
+offset_left = -592.0
+offset_top = 313.0
+offset_right = -515.0
+offset_bottom = 325.0
+scale = Vector2(6, 6)
 value = 100.0
 texture_under = ExtResource("2_qlg0r")
 texture_progress = ExtResource("3_tuyoq")
@@ -283,11 +283,12 @@ position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_g2els")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.8, 0.8)
 
 [node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="."]
 z_index = 50
-position = Vector2(-517, 249)
-scale = Vector2(4, 4)
+position = Vector2(-650, 331)
+scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_4ni07")
 animation = &"on"
 script = ExtResource("8_smehm")

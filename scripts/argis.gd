@@ -3,6 +3,8 @@ extends CharacterBody2D
 @onready var marker_2d: Marker2D = $Marker2D
 @onready var marker_2d_2: Marker2D = $Marker2D2
 @onready var lightningcooldown: Timer = $lightningcooldown
+@onready var follow_area: Area2D = $"Follow Area"
+@onready var character_body_2d: CharacterBody2D = $"../CharacterBody2D"
 
 
 var groundwave = preload("res://scenes/ground_wave.tscn")
@@ -54,8 +56,9 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 	lightninged = false
 
 
+
 func _on_lightningcooldown_timeout() -> void:
-	if current_state == state.idle:
+	if current_state == state.idle and follow_area.overlaps_body($"../CharacterBody2D"):
 		current_state = state.lightning
 		
 		
