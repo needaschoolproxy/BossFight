@@ -1,14 +1,17 @@
 extends Area2D
+
 @onready var ray_cast_2d: RayCast2D = $RayCast2D
+var DAMAGE := 30  
+var KNOCKBACK := Vector2(0, -300)
 
-
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	if not $RayCast2D.is_colliding():
-		position.y += 1
-
+	if not ray_cast_2d.is_colliding():
+		position.y += 1  
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	queue_free()
+
+func _on_body_entered(body: Node) -> void:
+	if body.has_method("take_damage"):
+		body.take_damage(DAMAGE, KNOCKBACK)
+		queue_free()

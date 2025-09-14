@@ -50,10 +50,11 @@ func _process(_delta: float) -> void:
 		retracted = true
 	
 	if animated_sprite_2d.animation == "lightning" and animated_sprite_2d.frame == 11 and not lightninged:
-		var new_lightning = lightning.instantiate()
-		owner.add_child(new_lightning)
-		new_lightning.position.x = position.x + randf_range(-500, 500)
-		new_lightning.position.y = position.y + 125
+		for i in range(3):
+			var new_lightning = lightning.instantiate()
+			owner.add_child(new_lightning)
+			new_lightning.position.x = position.x + randf_range(-500, 500)
+			new_lightning.position.y = position.y + 125
 		lightninged = true
 
 func _on_retract_area_body_entered(_body:Node2D) -> void:
