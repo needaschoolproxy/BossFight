@@ -3,33 +3,36 @@
 [ext_resource type="Script" uid="uid://cmh28qgyqblp5" path="res://scripts/lightning.gd" id="1_n7g4i"]
 [ext_resource type="Texture2D" uid="uid://6w8puphemojv" path="res://assets/lightning.png" id="2_n7g4i"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_n7g4i"]
+atlas = ExtResource("2_n7g4i")
+region = Rect2(0, 0, 48, 128)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_gpx16"]
 atlas = ExtResource("2_n7g4i")
-region = Rect2(0, 0, 32, 64)
+region = Rect2(48, 0, 48, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ybhjs"]
 atlas = ExtResource("2_n7g4i")
-region = Rect2(32, 0, 32, 64)
+region = Rect2(96, 0, 48, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qg4np"]
 atlas = ExtResource("2_n7g4i")
-region = Rect2(64, 0, 32, 64)
+region = Rect2(144, 0, 48, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hfadc"]
 atlas = ExtResource("2_n7g4i")
-region = Rect2(96, 0, 32, 64)
+region = Rect2(192, 0, 48, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wxtiq"]
 atlas = ExtResource("2_n7g4i")
-region = Rect2(128, 0, 32, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5u1n0"]
-atlas = ExtResource("2_n7g4i")
-region = Rect2(160, 0, 32, 64)
+region = Rect2(240, 0, 48, 128)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_psghh"]
 animations = [{
 "frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n7g4i")
+}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_gpx16")
 }, {
@@ -44,9 +47,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_wxtiq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5u1n0")
 }],
 "loop": false,
 "name": &"default",
@@ -54,13 +54,15 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n7g4i"]
-size = Vector2(22, 253)
+size = Vector2(58, 503)
 
 [node name="Area2D" type="Area2D"]
+collision_layer = 2
+collision_mask = 4
 script = ExtResource("1_n7g4i")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-1, -128)
+position = Vector2(0, -256)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_psghh")
 autoplay = "default"
@@ -68,7 +70,7 @@ frame = 5
 frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -126.5)
+position = Vector2(1, -251.5)
 shape = SubResource("RectangleShape2D_n7g4i")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]

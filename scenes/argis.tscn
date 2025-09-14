@@ -311,8 +311,8 @@ size = Vector2(80, 84)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n5l56"]
 size = Vector2(8, 130)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8apko"]
-size = Vector2(328, 274)
+[sub_resource type="CircleShape2D" id="CircleShape2D_mwiy4"]
+radius = 321.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8apko"]
 radius = 789.124
@@ -346,11 +346,11 @@ position = Vector2(-120, 94)
 position = Vector2(0, -54)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RetractArea"]
-position = Vector2(0, 45)
-shape = SubResource("RectangleShape2D_8apko")
+position = Vector2(0, 68)
+shape = SubResource("CircleShape2D_mwiy4")
 
 [node name="lightningcooldown" type="Timer" parent="."]
-wait_time = 1.416
+wait_time = 3.0
 autostart = true
 
 [node name="TextureProgressBar" parent="." instance=ExtResource("3_8apko")]
@@ -367,6 +367,11 @@ position = Vector2(0, -20)
 position = Vector2(0, -24)
 shape = SubResource("CircleShape2D_8apko")
 
+[node name="retracttimer" type="Timer" parent="."]
+wait_time = 2.0
+
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
-[connection signal="body_entered" from="RetractArea" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="RetractArea" to="." method="_on_retract_area_body_entered"]
+[connection signal="body_exited" from="RetractArea" to="." method="_on_retract_area_body_exited"]
 [connection signal="timeout" from="lightningcooldown" to="." method="_on_lightningcooldown_timeout"]
+[connection signal="timeout" from="retracttimer" to="." method="_on_retracttimer_timeout"]

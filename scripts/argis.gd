@@ -6,6 +6,7 @@ extends CharacterBody2D
 @onready var lightningcooldown: Timer = $lightningcooldown
 @onready var follow_area: Area2D = $"Follow Area"
 @onready var character_body_2d: CharacterBody2D = $"../CharacterBody2D"
+@onready var retracttimer: Timer = $retracttimer
 
 var groundwave = preload("res://scenes/ground_wave.tscn")
 var lightning = preload("res://scenes/lightning.tscn")
@@ -55,8 +56,12 @@ func _process(_delta: float) -> void:
 		new_lightning.position.y = position.y + 125
 		lightninged = true
 
-func _on_area_2d_body_entered(_body: Node2D) -> void:
-	current_state = state.retract
+func _on_retract_area_body_entered(_body:Node2D) -> void:
+	$retracttimer.start()
+	
+func _on_retract_area_body_exited(_body:Node2D) -> void:
+	$retracttimer.start()
+	$retracttimer.stop()
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	current_state = state.idle
@@ -65,10 +70,8 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 
 func _on_lightningcooldown_timeout() -> void:
 	if current_state == state.idle and follow_area.overlaps_body($"../CharacterBody2D"):
-		if randf() < 0.5:
 			current_state = state.lightning
-		else:
-			current_state = state.retract
+
 
 func take_damage(dmg: int, _kb: Vector2) -> void:
 	health -= dmg
@@ -78,3 +81,7 @@ func take_damage(dmg: int, _kb: Vector2) -> void:
 	$AnimatedSprite2D.modulate = Color(1, 1, 1)
 	is_hurt = false
 	await get_tree().create_timer(1).timeout
+
+
+func _on_retracttimer_timeout() -> void:
+	current_state = state.retract
