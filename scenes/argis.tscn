@@ -312,7 +312,7 @@ size = Vector2(80, 84)
 size = Vector2(8, 130)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8apko"]
-size = Vector2(328, 224)
+size = Vector2(328, 274)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8apko"]
 radius = 789.124
@@ -346,7 +346,7 @@ position = Vector2(-120, 94)
 position = Vector2(0, -54)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RetractArea"]
-position = Vector2(0, 70)
+position = Vector2(0, 45)
 shape = SubResource("RectangleShape2D_8apko")
 
 [node name="lightningcooldown" type="Timer" parent="."]

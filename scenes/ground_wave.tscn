@@ -9,7 +9,7 @@ size = Vector2(82, 1.5)
 [node name="GroundWave" type="RigidBody2D"]
 script = ExtResource("1_wwb60")
 
-[node name="Groundwave" type="Sprite2D" parent="."]
+[node name="Groundwavesprite" type="Sprite2D" parent="."]
 scale = Vector2(4, 4)
 texture = ExtResource("1_2l4l6")
 
