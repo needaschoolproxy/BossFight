@@ -1,17 +1,119 @@
-[gd_scene load_steps=4 format=3 uid="uid://cckilbnu307qv"]
+[gd_scene load_steps=17 format=3 uid="uid://cckilbnu307qv"]
 
-[ext_resource type="Texture2D" uid="uid://ca3rahja6g81n" path="res://assets/icon.svg" id="1_dil0n"]
 [ext_resource type="Script" uid="uid://68bqg76n7rsg" path="res://scripts/drone.gd" id="1_knnud"]
+[ext_resource type="Texture2D" uid="uid://cs1q3jum1mb17" path="res://assets/drone.png" id="2_knnud"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_knnud"]
-size = Vector2(117, 117)
+size = Vector2(79, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1r4ts"]
+atlas = ExtResource("2_knnud")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_umx5g"]
+atlas = ExtResource("2_knnud")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k1p8w"]
+atlas = ExtResource("2_knnud")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f6asb"]
+atlas = ExtResource("2_knnud")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nxcwj"]
+atlas = ExtResource("2_knnud")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t4gt0"]
+atlas = ExtResource("2_knnud")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_746d6"]
+atlas = ExtResource("2_knnud")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4p7cs"]
+atlas = ExtResource("2_knnud")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hxsdg"]
+atlas = ExtResource("2_knnud")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5v1da"]
+atlas = ExtResource("2_knnud")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1jc1q"]
+atlas = ExtResource("2_knnud")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_om5ig"]
+atlas = ExtResource("2_knnud")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pmcdn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1r4ts")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_umx5g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k1p8w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f6asb")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nxcwj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t4gt0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_746d6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4p7cs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hxsdg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5v1da")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1jc1q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_om5ig")
+}],
+"loop": false,
+"name": &"shoot",
+"speed": 10.0
+}]
 
 [node name="Drone" type="CharacterBody2D"]
 script = ExtResource("1_knnud")
 
-[node name="Icon" type="Sprite2D" parent="."]
-texture = ExtResource("1_dil0n")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, 0.5)
+position = Vector2(7.5, -5)
 shape = SubResource("RectangleShape2D_knnud")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(16, -2)
+scale = Vector2(-4, 4)
+sprite_frames = SubResource("SpriteFrames_pmcdn")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.737256

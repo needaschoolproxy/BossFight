@@ -1,4 +1,6 @@
 extends CharacterBody2D
+@onready var character_body_2d: CharacterBody2D = $"../CharacterBody2D"
+var fireball = preload("res://scenes/fireball.tscn")
 
 var health = 50
 var is_hurt = false
@@ -10,6 +12,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	if health <= 0: return queue_free()
+	look_at(character_body_2d.position)
 
 
 func take_damage(dmg: int, _kb: Vector2) -> void:
