@@ -65,8 +65,8 @@ texture = ExtResource("2_ibiss")
 2:5/0/z_index = -5
 
 [sub_resource type="TileSet" id="TileSet_echbf"]
-physics_layer_0/collision_layer = 3
-physics_layer_0/collision_mask = 3
+physics_layer_0/collision_layer = 7
+physics_layer_0/collision_mask = 7
 sources/0 = SubResource("TileSetAtlasSource_c6dvc")
 
 [node name="Node2D2" type="Node2D"]
@@ -92,4 +92,4 @@ position = Vector2(-835, -977)
 position = Vector2(436, -975)
 
 [node name="Drone" parent="." instance=ExtResource("6_ygjfp")]
-position = Vector2(1036, -510)
+position = Vector2(1414, -265)

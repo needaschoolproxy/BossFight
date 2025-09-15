@@ -32,6 +32,13 @@ func _physics_process(delta: float) -> void:
 		state = State.IDLE
 	sprite.play(["Idle","spawn","Attacking"][state])
 	
+	if character.position.x < position.x:
+		$AnimatedSprite2D.flip_v = true
+		$Marker2D.position.y = -35
+	else:
+		$AnimatedSprite2D.flip_v = false
+		$Marker2D.position.y = 30
+	
 func take_damage(dmg: int, kb: Vector2) -> void:
 	health -= dmg
 	knockback = kb
