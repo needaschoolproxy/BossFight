@@ -2,22 +2,24 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cor85lp6bu25g"
-path="res://.godot/imported/groundwave.png-2f960df2d6b2b1771c317c7f3001d027.ctex"
+uid="uid://c5ho2kc254j60"
+path="res://.godot/imported/lightningwarning.png-1c0ffbc9ec5a28fc6d91ccc2c4d4ad3c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/groundwave.png"
-dest_files=["res://.godot/imported/groundwave.png-2f960df2d6b2b1771c317c7f3001d027.ctex"]
+source_file="res://assets/lightningwarning.png"
+dest_files=["res://.godot/imported/lightningwarning.png-1c0ffbc9ec5a28fc6d91ccc2c4d4ad3c.ctex"]
 
 [params]
 
 compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
@@ -25,6 +27,10 @@ mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false

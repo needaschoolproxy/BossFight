@@ -8,8 +8,13 @@ extends CharacterBody2D
 @onready var character_body_2d: CharacterBody2D = $"../CharacterBody2D"
 @onready var retracttimer: Timer = $retracttimer
 
-var groundwave = preload("res://scenes/ground_wave.tscn")
-var lightning = preload("res://scenes/lightning.tscn")
+
+
+
+const DRONE = preload("uid://cckilbnu307qv")
+const GROUND_WAVE = preload("uid://drvmc8vusgft8")
+const LIGHTNING = preload("uid://r54vgnokvpri")
+
 
 enum state {idle, retract, lightning, glow, signaling}
 var current_state = state.idle
@@ -37,12 +42,12 @@ func _process(_delta: float) -> void:
 		return
 	
 	if animated_sprite_2d.animation == "retract" and animated_sprite_2d.frame == 10 and not retracted:
-		var wave_right = groundwave.instantiate()
+		var wave_right = GROUND_WAVE.instantiate()
 		add_child(wave_right)
 		wave_right.transform = marker_2d.transform
 		wave_right.flip = false
 
-		var wave_left = groundwave.instantiate()
+		var wave_left = GROUND_WAVE.instantiate()
 		add_child(wave_left)
 		wave_left.transform = marker_2d_2.transform
 		wave_left.flip = true
@@ -50,8 +55,8 @@ func _process(_delta: float) -> void:
 		retracted = true
 	
 	if animated_sprite_2d.animation == "lightning" and animated_sprite_2d.frame == 11 and not lightninged:
-		for i in range(3):
-			var new_lightning = lightning.instantiate()
+		for i in randi_range(2,4):
+			var new_lightning = LIGHTNING.instantiate()
 			owner.add_child(new_lightning)
 			new_lightning.position.x = position.x + randf_range(-500, 500)
 			new_lightning.position.y = position.y + 125
@@ -79,7 +84,7 @@ func take_damage(dmg: int, _kb: Vector2) -> void:
 	is_hurt = true
 	$AnimatedSprite2D.modulate = Color(1, 0.5, 0.5)
 	await get_tree().create_timer(HURT_DURATION).timeout
-	$AnimatedSprite2D.modulate = Color(1, 1, 1)
+	$AnimatedSprite2D.modulate = Color(1.0, 1.0, 1.0, 1.0)
 	is_hurt = false
 	await get_tree().create_timer(1).timeout
 

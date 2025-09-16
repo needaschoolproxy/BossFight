@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://r54vgnokvpri"]
+[gd_scene load_steps=19 format=3 uid="uid://r54vgnokvpri"]
 
 [ext_resource type="Script" uid="uid://cmh28qgyqblp5" path="res://scripts/lightning.gd" id="1_n7g4i"]
 [ext_resource type="Texture2D" uid="uid://6w8puphemojv" path="res://assets/lightning.png" id="2_n7g4i"]
+[ext_resource type="Texture2D" uid="uid://c5ho2kc254j60" path="res://assets/lightningwarning.png" id="3_gpx16"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n7g4i"]
 atlas = ExtResource("2_n7g4i")
@@ -27,6 +28,34 @@ region = Rect2(192, 0, 48, 128)
 atlas = ExtResource("2_n7g4i")
 region = Rect2(240, 0, 48, 128)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_5u1n0"]
+atlas = ExtResource("3_gpx16")
+region = Rect2(0, 0, 48, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_psghh"]
+atlas = ExtResource("3_gpx16")
+region = Rect2(48, 0, 48, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fstsa"]
+atlas = ExtResource("3_gpx16")
+region = Rect2(96, 0, 48, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sq60s"]
+atlas = ExtResource("3_gpx16")
+region = Rect2(144, 0, 48, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hg7fg"]
+atlas = ExtResource("3_gpx16")
+region = Rect2(192, 0, 48, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kaeaj"]
+atlas = ExtResource("3_gpx16")
+region = Rect2(240, 0, 48, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l6yd2"]
+atlas = ExtResource("3_gpx16")
+region = Rect2(288, 0, 48, 128)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_psghh"]
 animations = [{
 "frames": [{
@@ -51,6 +80,32 @@ animations = [{
 "loop": false,
 "name": &"default",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5u1n0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_psghh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fstsa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sq60s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hg7fg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kaeaj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l6yd2")
+}],
+"loop": false,
+"name": &"warning",
+"speed": 10.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n7g4i"]
@@ -65,9 +120,8 @@ script = ExtResource("1_n7g4i")
 position = Vector2(0, -256)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_psghh")
-autoplay = "default"
-frame = 5
-frame_progress = 1.0
+animation = &"warning"
+autoplay = "warning"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, -251.5)

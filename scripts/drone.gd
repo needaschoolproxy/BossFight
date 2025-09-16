@@ -12,8 +12,10 @@ const HURT_DURATION = 0.2
 enum state{idle,shoot,glide}
 var current_state = state.idle
 
+func _ready() -> void:
+	set_process(true)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	match current_state:
 		state.idle: animated_sprite_2d.play("idle")
 		state.shoot:animated_sprite_2d.play("shoot")
