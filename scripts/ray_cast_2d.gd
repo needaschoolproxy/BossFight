@@ -12,7 +12,7 @@ var tween: Tween = null
 var is_casting := false: set = set_is_casting
 
 func _ready() -> void:
-	appear() 
+	pass
 
 func _process(delta: float) -> void:
 	target_position.x = move_toward(target_position.x, max_length, cast_speed * delta)
@@ -36,24 +36,13 @@ func set_is_casting(new_value: bool):
 
 	if not is_casting:
 		target_position = Vector2.ZERO
-		dissapear()
-	else:
-		appear()
 
-func appear():
-	line_2d.visible = true
-	if tween and tween.is_running():
-		tween.kill()
+
+
+
+func _on_timer_timeout() -> void:
 	tween = create_tween()
-	tween.tween_property(line_2d,"width",line_width,growth_time * 2).from(1)
-
-	
-	var timer := Timer.new()
-	timer.wait_time = 5.0
-	timer.one_shot = true
-	add_child(timer)
-	timer.start()
-	timer.timeout.connect(queue_free)
-
-func dissapear():
+	tween.tween_property(line_2d, "width", 0.0,growth_time).from_current()
+	tween.tween_callback(line_2d.hide)
+	await get_tree().create_timer(0.2).timeout
 	queue_free()
