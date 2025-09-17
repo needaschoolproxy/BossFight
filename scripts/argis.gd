@@ -9,6 +9,7 @@ extends CharacterBody2D
 @onready var retracttimer: Timer = $retracttimer
 @onready var laser_timer: Timer = $LaserTimer
 @onready var lasermarker: Marker2D = $Lasermarker
+@onready var lightning_sfx: AudioStreamPlayer2D = $LightningSFX
 
 const GROUND_WAVE = preload("uid://drvmc8vusgft8")
 const LIGHTNING = preload("uid://r54vgnokvpri")
@@ -23,6 +24,7 @@ var is_hurt = false
 const HURT_DURATION = 0.1
 var secondphase = false
 var using_laser := false
+var active_lasers: Array = []
 
 func _ready() -> void:
 	laser_timer.wait_time = randf_range(5.0, 9.0)
@@ -63,12 +65,33 @@ func _process(_delta: float) -> void:
 
 	if animated_sprite_2d.animation == "lightning" and animated_sprite_2d.frame == 11 and not lightninged:
 		if using_laser: return
-		if secondphase == true:
+		if secondphase:
 			for i in randi_range(4, 5):
 				var new_lightning = LIGHTNING.instantiate()
 				owner.add_child(new_lightning)
 				new_lightning.position.x = position.x + randf_range(-500, 500)
 				new_lightning.position.y = position.y + 125
+
+				var s = AudioStreamPlayer2D.new()
+				s.stream = lightning_sfx.stream
+				s.pitch_scale = randf_range(0.9, 1.1)
+				add_child(s)
+				var t = Timer.new()
+				t.one_shot = true
+				t.wait_time = 0.3
+				add_child(t)
+				t.start()
+				t.timeout.connect(func():
+					s.play()
+					t.queue_free()
+				)
+				var t2 = Timer.new()
+				t2.one_shot = true
+				t2.wait_time = 1.5
+				add_child(t2)
+				t2.start()
+				t2.timeout.connect(Callable(s, "queue_free"))
+
 				lightninged = true
 		else:
 			for i in randi_range(2, 4):
@@ -76,6 +99,27 @@ func _process(_delta: float) -> void:
 				owner.add_child(new_lightning)
 				new_lightning.position.x = position.x + randf_range(-500, 500)
 				new_lightning.position.y = position.y + 125
+
+				var s2 = AudioStreamPlayer2D.new()
+				s2.stream = lightning_sfx.stream
+				s2.pitch_scale = randf_range(0.9, 1.1)
+				add_child(s2)
+				var t3 = Timer.new()
+				t3.one_shot = true
+				t3.wait_time = 0.3
+				add_child(t3)
+				t3.start()
+				t3.timeout.connect(func():
+					s2.play()
+					t3.queue_free()
+				)
+				var t4 = Timer.new()
+				t4.one_shot = true
+				t4.wait_time = 1.5
+				add_child(t4)
+				t4.start()
+				t4.timeout.connect(Callable(s2, "queue_free"))
+
 				lightninged = true
 
 func _on_retract_area_body_entered(_body: Node2D) -> void:
@@ -93,6 +137,7 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 		await get_tree().create_timer(1.6).timeout
 		secondphase = true
 		animated_sprite_2d.speed_scale = 2.0
+		laser_timer.wait_time *= 0.5
 	else:
 		current_state = state.idle
 	retracted = false
@@ -121,16 +166,36 @@ func _on_laser_timer_timeout() -> void:
 	if current_state == state.idle and not using_laser:
 		await animated_sprite_2d.animation_finished
 		current_state = state.glow
-
-		var new_laser = LASER.instantiate()
-		add_child(new_laser)
-		new_laser.transform = $Lasermarker.transform
 		using_laser = true
 
-		new_laser.tree_exited.connect(func():
-			using_laser = false
-			current_state = state.idle
-		)
+		if secondphase:
+			active_lasers.clear()
+			var angles = [-0.3, 0.0, 0.3]
+			for angle in angles:
+				var new_laser = LASER.instantiate()
+				add_child(new_laser)
+				new_laser.transform = $Lasermarker.transform
+				new_laser.rotation += angle
+				active_lasers.append(new_laser)
+				new_laser.tree_exited.connect(func():
+					active_lasers.erase(new_laser)
+					if active_lasers.is_empty():
+						using_laser = false
+						current_state = state.idle
+				)
+		else:
+			var new_laser = LASER.instantiate()
+			add_child(new_laser)
+			new_laser.transform = $Lasermarker.transform
+			active_lasers = [new_laser]
+			new_laser.tree_exited.connect(func():
+				active_lasers.erase(new_laser)
+				using_laser = false
+				current_state = state.idle
+			)
 
-	laser_timer.wait_time = randf_range(5.0, 9.0)
+	if secondphase:
+		laser_timer.wait_time = randf_range(2.5, 4.5)
+	else:
+		laser_timer.wait_time = randf_range(5.0, 9.0)
 	laser_timer.start()

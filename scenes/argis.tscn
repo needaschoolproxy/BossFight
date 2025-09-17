@@ -1,9 +1,11 @@
-[gd_scene load_steps=74 format=3 uid="uid://ejyhsof48xyh"]
+[gd_scene load_steps=76 format=3 uid="uid://ejyhsof48xyh"]
 
 [ext_resource type="Script" uid="uid://gg27c6sxp2uj" path="res://scripts/argis.gd" id="1_eqhmj"]
 [ext_resource type="Texture2D" uid="uid://c148ap4syhcx0" path="res://assets/Argisspritesheet.png" id="1_n5l56"]
 [ext_resource type="Texture2D" uid="uid://xnupvra0xwj6" path="res://assets/2ndphase.png" id="2_mwiy4"]
 [ext_resource type="PackedScene" uid="uid://c3esguxjka6nk" path="res://scenes/argisbar.tscn" id="3_8apko"]
+[ext_resource type="AudioStream" uid="uid://cqfhljmh50q6v" path="res://assets/electric-discharge-386160.mp3" id="5_agjqy"]
+[ext_resource type="AudioStream" uid="uid://cl5n4531f2uh1" path="res://assets/laser-beam-76426.mp3" id="6_701lf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n881m"]
 atlas = ExtResource("2_mwiy4")
@@ -511,9 +513,7 @@ autostart = true
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_n881m")
-animation = &"glow"
-frame = 12
-frame_progress = 1.0
+animation = &"lightning"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 86)
@@ -560,6 +560,13 @@ shape = SubResource("CircleShape2D_8apko")
 
 [node name="Lasermarker" type="Marker2D" parent="."]
 position = Vector2(0, -75)
+
+[node name="LightningSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_agjqy")
+volume_db = -0.72
+
+[node name="LaserSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_701lf")
 
 [connection signal="timeout" from="retracttimer" to="." method="_on_retracttimer_timeout"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
