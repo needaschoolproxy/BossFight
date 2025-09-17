@@ -7,10 +7,13 @@ extends CharacterBody2D
 @onready var follow_area: Area2D = $"Follow Area"
 @onready var character_body_2d: CharacterBody2D = $"../CharacterBody2D"
 @onready var retracttimer: Timer = $retracttimer
+@onready var laser_timer: Timer = $LaserTimer
+@onready var lasermarker: Marker2D = $Lasermarker
 
 const DRONE = preload("uid://cckilbnu307qv")
 const GROUND_WAVE = preload("uid://drvmc8vusgft8")
 const LIGHTNING = preload("uid://r54vgnokvpri")
+const LASER = preload("uid://dd2ncwt7q3t87")
 
 enum state {idle, retract, lightning, glow, signaling,secondphase}
 var current_state = state.idle
@@ -45,7 +48,6 @@ func _process(_delta: float) -> void:
 		return
 	
 	if animated_sprite_2d.animation == "retract" and animated_sprite_2d.frame == 10 and not retracted:
-		await get_tree().create_timer(0.2).timeout
 		var wave_right = GROUND_WAVE.instantiate()
 		add_child(wave_right)
 		wave_right.transform = marker_2d.transform
@@ -65,13 +67,14 @@ func _process(_delta: float) -> void:
 				owner.add_child(new_lightning)
 				new_lightning.position.x = position.x + randf_range(-500, 500)
 				new_lightning.position.y = position.y + 125
+				lightninged = true
 		else: for i in randi_range(2,4):
 				var new_lightning = LIGHTNING.instantiate()
 				owner.add_child(new_lightning)
 				new_lightning.position.x = position.x + randf_range(-500, 500)
 				new_lightning.position.y = position.y + 125
-
-		lightninged = true
+				lightninged = true
+	
 
 func _on_retract_area_body_entered(_body:Node2D) -> void:
 	$retracttimer.start()
@@ -85,11 +88,11 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 		current_state = state.secondphase
 		await get_tree().create_timer(1.6).timeout
 		secondphase = true
-	else:
-		current_state = state.idle
+	else: current_state = state.idle
 	retracted = false
 	lightninged = false
-
+	
+	
 
 func _on_lightningcooldown_timeout() -> void:
 	if current_state == state.idle and follow_area.overlaps_body($"../CharacterBody2D"):
@@ -99,13 +102,24 @@ func _on_lightningcooldown_timeout() -> void:
 func take_damage(dmg: int, _kb: Vector2) -> void:
 	health -= dmg
 	is_hurt = true
-	$AnimatedSprite2D.modulate = Color(1, 0.5, 0.5)
+	$AnimatedSprite2D.modulate = Color(1,0.5,0.5)
 	await get_tree().create_timer(HURT_DURATION).timeout
 	$AnimatedSprite2D.modulate = Color(1.0, 1.0, 1.0, 1.0)
 	is_hurt = false
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(1.35).timeout
 
 
 func _on_retracttimer_timeout() -> void:
 	await animated_sprite_2d.animation_finished
 	current_state = state.retract
+
+
+func _on_laser_timer_timeout() -> void:
+	await animated_sprite_2d.animation_finished
+	current_state = state.glow
+	for i in 3:
+		await get_tree().create_timer(1.15).timeout
+		var new_laser = LASER.instantiate()
+		add_child(new_laser)
+		new_laser.transform = $Lasermarker.transform
+	

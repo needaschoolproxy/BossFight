@@ -23,6 +23,8 @@ func _process(delta: float) -> void:
 	if is_colliding():
 		laser_end_position = to_local(get_collision_point())
 	line_2d.points[1] = laser_end_position
+	
+	rotation_degrees += 1
 
 @export var is_casting := false: set = set_is_casting
 

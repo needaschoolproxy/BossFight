@@ -318,7 +318,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"glow",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -448,9 +448,7 @@ autostart = true
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_n881m")
-animation = &"2ndphase"
-frame = 15
-frame_progress = 1.0
+animation = &"glow"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 86)
@@ -477,6 +475,10 @@ shape = SubResource("CircleShape2D_mwiy4")
 wait_time = 3.0
 autostart = true
 
+[node name="LaserTimer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+
 [node name="TextureProgressBar" parent="." instance=ExtResource("3_8apko")]
 offset_left = -372.0
 offset_top = 149.0
@@ -491,8 +493,12 @@ position = Vector2(0, -20)
 position = Vector2(0, -24)
 shape = SubResource("CircleShape2D_8apko")
 
+[node name="Lasermarker" type="Marker2D" parent="."]
+position = Vector2(0, -75)
+
 [connection signal="timeout" from="retracttimer" to="." method="_on_retracttimer_timeout"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="RetractArea" to="." method="_on_retract_area_body_entered"]
 [connection signal="body_exited" from="RetractArea" to="." method="_on_retract_area_body_exited"]
 [connection signal="timeout" from="lightningcooldown" to="." method="_on_lightningcooldown_timeout"]
+[connection signal="timeout" from="LaserTimer" to="." method="_on_laser_timer_timeout"]
