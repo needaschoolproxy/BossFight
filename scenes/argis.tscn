@@ -476,7 +476,7 @@ wait_time = 3.0
 autostart = true
 
 [node name="LaserTimer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 15.0
 autostart = true
 
 [node name="TextureProgressBar" parent="." instance=ExtResource("3_8apko")]

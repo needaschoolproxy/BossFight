@@ -7,9 +7,8 @@ extends RayCast2D
 var tween: Tween = null
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
-
-
+	pass
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	target_position.x = move_toward(
@@ -46,8 +45,12 @@ func appear():
 	if tween and tween.is_running():
 		tween.kill()
 	tween = create_tween()
-	tween.tween_property(line_2d,"width",line_width,growth_time * 2).from(0)
+	tween.tween_property(line_2d,"width",line_width,growth_time * 2).from(1)
 func dissapear():
 	pass
 	
 	
+
+
+func _on_timer_timeout() -> void:
+	queue_free()
