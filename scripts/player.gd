@@ -158,7 +158,7 @@ func _on_attack_area_body_entered(body):
 			velocity.x = -knock_dir * 100
 		elif attack_down.monitoring:
 			body.take_damage(ATTACK_DAMAGE, Vector2(0, 200))
-			velocity.y = JUMP_VELOCITY * 10
+			velocity.y = JUMP_VELOCITY * randf_range(8,12)
 
 func _on_animation_finished():
 	var anim_name := sprite.animation
