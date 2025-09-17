@@ -9,7 +9,7 @@ extends CharacterBody2D
 @onready var retracttimer: Timer = $retracttimer
 @onready var laser_timer: Timer = $LaserTimer
 @onready var lasermarker: Marker2D = $Lasermarker
-@onready var lightning_sfx: AudioStreamPlayer2D = $LightningSFX
+
 
 const GROUND_WAVE = preload("uid://drvmc8vusgft8")
 const LIGHTNING = preload("uid://r54vgnokvpri")
@@ -71,56 +71,17 @@ func _process(_delta: float) -> void:
 				owner.add_child(new_lightning)
 				new_lightning.position.x = position.x + randf_range(-500, 500)
 				new_lightning.position.y = position.y + 125
-
-				var s = AudioStreamPlayer2D.new()
-				s.stream = lightning_sfx.stream
-				s.pitch_scale = randf_range(0.9, 1.1)
-				add_child(s)
-				var t = Timer.new()
-				t.one_shot = true
-				t.wait_time = 0.3
-				add_child(t)
-				t.start()
-				t.timeout.connect(func():
-					s.play()
-					t.queue_free()
-				)
-				var t2 = Timer.new()
-				t2.one_shot = true
-				t2.wait_time = 1.5
-				add_child(t2)
-				t2.start()
-				t2.timeout.connect(Callable(s, "queue_free"))
-
 				lightninged = true
+				await get_tree().create_timer(0.1).timeout
 		else:
 			for i in randi_range(2, 4):
 				var new_lightning = LIGHTNING.instantiate()
 				owner.add_child(new_lightning)
 				new_lightning.position.x = position.x + randf_range(-500, 500)
 				new_lightning.position.y = position.y + 125
-
-				var s2 = AudioStreamPlayer2D.new()
-				s2.stream = lightning_sfx.stream
-				s2.pitch_scale = randf_range(0.9, 1.1)
-				add_child(s2)
-				var t3 = Timer.new()
-				t3.one_shot = true
-				t3.wait_time = 0.3
-				add_child(t3)
-				t3.start()
-				t3.timeout.connect(func():
-					s2.play()
-					t3.queue_free()
-				)
-				var t4 = Timer.new()
-				t4.one_shot = true
-				t4.wait_time = 1.5
-				add_child(t4)
-				t4.start()
-				t4.timeout.connect(Callable(s2, "queue_free"))
-
 				lightninged = true
+				await get_tree().create_timer(0.25).timeout
+				
 
 func _on_retract_area_body_entered(_body: Node2D) -> void:
 	if using_laser: return
