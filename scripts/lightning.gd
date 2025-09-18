@@ -25,7 +25,5 @@ func _on_body_entered(body: Node) -> void:
 		body.take_damage(DAMAGE, KNOCKBACK)
 
 
-
-
 func _on_animated_sprite_2d_animation_finished() -> void:
 	queue_free()

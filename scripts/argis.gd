@@ -68,27 +68,6 @@ func _process(_delta: float) -> void:
 			owner.add_child(new_lightning)
 			new_lightning.position.x = position.x + randf_range(-500, 500)
 			new_lightning.position.y = position.y + 125
-			var sfx_node = new_lightning.get_node_or_null("LightningSFX")
-			if sfx_node:
-				var sfx_instance = AudioStreamPlayer2D.new()
-				sfx_instance.stream = sfx_node.stream
-				sfx_instance.pitch_scale = randf_range(0.9, 1.1)
-				add_child(sfx_instance)
-				var delay_timer = Timer.new()
-				delay_timer.one_shot = true
-				delay_timer.wait_time = 0.3
-				add_child(delay_timer)
-				delay_timer.start()
-				delay_timer.timeout.connect(func():
-					sfx_instance.play()
-					delay_timer.queue_free()
-				)
-				var free_timer = Timer.new()
-				free_timer.one_shot = true
-				free_timer.wait_time = 1.5
-				add_child(free_timer)
-				free_timer.start()
-				free_timer.timeout.connect(Callable(sfx_instance, "queue_free"))
 			lightninged = true
 			await get_tree().create_timer(0.2).timeout
 
@@ -106,8 +85,7 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 		current_state = state.secondphase
 		await get_tree().create_timer(1.6).timeout
 		secondphase = true
-		animated_sprite_2d.speed_scale = 2.0
-		laser_timer.wait_time *= 0.5
+		laser_timer.wait_time *= 0.75
 	else:
 		current_state = state.idle
 	retracted = false
