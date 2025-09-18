@@ -10,7 +10,6 @@ extends CharacterBody2D
 @onready var laser_timer: Timer = $LaserTimer
 @onready var lasermarker: Marker2D = $Lasermarker
 
-
 const GROUND_WAVE = preload("uid://drvmc8vusgft8")
 const LIGHTNING = preload("uid://r54vgnokvpri")
 const LASER = preload("uid://dd2ncwt7q3t87")
@@ -55,33 +54,43 @@ func _process(_delta: float) -> void:
 		add_child(wave_right)
 		wave_right.transform = marker_2d.transform
 		wave_right.flip = false
-
 		var wave_left = GROUND_WAVE.instantiate()
 		add_child(wave_left)
 		wave_left.transform = marker_2d_2.transform
 		wave_left.flip = true
-
 		retracted = true
 
 	if animated_sprite_2d.animation == "lightning" and animated_sprite_2d.frame == 11 and not lightninged:
 		if using_laser: return
-		if secondphase:
-			for i in randi_range(4, 5):
-				var new_lightning = LIGHTNING.instantiate()
-				owner.add_child(new_lightning)
-				new_lightning.position.x = position.x + randf_range(-500, 500)
-				new_lightning.position.y = position.y + 125
-				lightninged = true
-				await get_tree().create_timer(0.1).timeout
-		else:
-			for i in randi_range(2, 4):
-				var new_lightning = LIGHTNING.instantiate()
-				owner.add_child(new_lightning)
-				new_lightning.position.x = position.x + randf_range(-500, 500)
-				new_lightning.position.y = position.y + 125
-				lightninged = true
-				await get_tree().create_timer(0.25).timeout
-				
+		var lightning_count = randi_range(4, 5) if secondphase else randi_range(2, 3)
+		for i in range(lightning_count):
+			var new_lightning = LIGHTNING.instantiate()
+			owner.add_child(new_lightning)
+			new_lightning.position.x = position.x + randf_range(-500, 500)
+			new_lightning.position.y = position.y + 125
+			var sfx_node = new_lightning.get_node_or_null("LightningSFX")
+			if sfx_node:
+				var sfx_instance = AudioStreamPlayer2D.new()
+				sfx_instance.stream = sfx_node.stream
+				sfx_instance.pitch_scale = randf_range(0.9, 1.1)
+				add_child(sfx_instance)
+				var delay_timer = Timer.new()
+				delay_timer.one_shot = true
+				delay_timer.wait_time = 0.3
+				add_child(delay_timer)
+				delay_timer.start()
+				delay_timer.timeout.connect(func():
+					sfx_instance.play()
+					delay_timer.queue_free()
+				)
+				var free_timer = Timer.new()
+				free_timer.one_shot = true
+				free_timer.wait_time = 1.5
+				add_child(free_timer)
+				free_timer.start()
+				free_timer.timeout.connect(Callable(sfx_instance, "queue_free"))
+			lightninged = true
+			await get_tree().create_timer(0.2).timeout
 
 func _on_retract_area_body_entered(_body: Node2D) -> void:
 	if using_laser: return
@@ -93,7 +102,7 @@ func _on_retract_area_body_exited(_body: Node2D) -> void:
 	$retracttimer.stop()
 
 func _on_animated_sprite_2d_animation_finished() -> void:
-	if health <= 500 and secondphase == false:
+	if health <= 500 and not secondphase:
 		current_state = state.secondphase
 		await get_tree().create_timer(1.6).timeout
 		secondphase = true
@@ -128,20 +137,34 @@ func _on_laser_timer_timeout() -> void:
 		await animated_sprite_2d.animation_finished
 		current_state = state.glow
 		using_laser = true
+		await animated_sprite_2d.animation_finished
 
+		var pizza_angles = [deg_to_rad(120), deg_to_rad(240), deg_to_rad(360)]
 		if secondphase:
-			for i in 3:
+			active_lasers.clear()
+			for angle in pizza_angles:
 				var new_laser = LASER.instantiate()
 				add_child(new_laser)
-				new_laser.transform = $Lasermarker.transform
-				await get_tree().create_timer(1.1).timeout
+				new_laser.global_position = lasermarker.global_position
+				new_laser.global_rotation = lasermarker.global_rotation + angle
+				active_lasers.append(new_laser)
+				new_laser.tree_exited.connect(func():
+					active_lasers.erase(new_laser)
+					if active_lasers.is_empty():
+						using_laser = false
+						current_state = state.idle
+				)
 		else:
-			for i in 2:
-				var new_laser = LASER.instantiate()
-				add_child(new_laser)
-				new_laser.transform = $Lasermarker.transform
-				await get_tree().create_timer(1.75).timeout
-
+			var new_laser = LASER.instantiate()
+			add_child(new_laser)
+			new_laser.global_position = lasermarker.global_position
+			new_laser.global_rotation = lasermarker.global_rotation
+			active_lasers = [new_laser]
+			new_laser.tree_exited.connect(func():
+				active_lasers.erase(new_laser)
+				using_laser = false
+				current_state = state.idle
+			)
 
 	if secondphase:
 		laser_timer.wait_time = randf_range(2.5, 4.5)
