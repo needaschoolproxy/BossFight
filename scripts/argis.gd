@@ -130,30 +130,18 @@ func _on_laser_timer_timeout() -> void:
 		using_laser = true
 
 		if secondphase:
-			active_lasers.clear()
-			var angles = [-0.3, 0.0, 0.3]
-			for angle in angles:
+			for i in 3:
 				var new_laser = LASER.instantiate()
 				add_child(new_laser)
 				new_laser.transform = $Lasermarker.transform
-				new_laser.rotation += angle
-				active_lasers.append(new_laser)
-				new_laser.tree_exited.connect(func():
-					active_lasers.erase(new_laser)
-					if active_lasers.is_empty():
-						using_laser = false
-						current_state = state.idle
-				)
+				await get_tree().create_timer(1.1).timeout
 		else:
-			var new_laser = LASER.instantiate()
-			add_child(new_laser)
-			new_laser.transform = $Lasermarker.transform
-			active_lasers = [new_laser]
-			new_laser.tree_exited.connect(func():
-				active_lasers.erase(new_laser)
-				using_laser = false
-				current_state = state.idle
-			)
+			for i in 2:
+				var new_laser = LASER.instantiate()
+				add_child(new_laser)
+				new_laser.transform = $Lasermarker.transform
+				await get_tree().create_timer(1.75).timeout
+
 
 	if secondphase:
 		laser_timer.wait_time = randf_range(2.5, 4.5)
