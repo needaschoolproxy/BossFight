@@ -1,4 +1,5 @@
 extends RayCast2D 
+@onready var cpu_particles_2d: CPUParticles2D = $CPUParticles2D
 
 @onready var line_2d: Line2D = $Line2D
 @export var cast_speed := 2000
@@ -27,7 +28,7 @@ func _process(delta: float) -> void:
 
 	line_2d.points[1] = laser_end_position
 	rotation_degrees += 1
-
+	$CPUParticles2D.global_position = get_collision_point()
 func set_is_casting(new_value: bool):
 	if is_casting == new_value:
 		return

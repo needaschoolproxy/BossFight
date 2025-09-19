@@ -22,12 +22,9 @@ var health = 1000
 var is_hurt = false
 const HURT_DURATION = 0.1
 var secondphase = false
-var using_laser := false
-var active_lasers: Array = []
 
 func _ready() -> void:
-	laser_timer.wait_time = randf_range(5.0, 9.0)
-	laser_timer.start()
+	pass
 
 func _process(_delta: float) -> void:
 	match current_state:
@@ -49,7 +46,6 @@ func _process(_delta: float) -> void:
 		return
 
 	if animated_sprite_2d.animation == "retract" and animated_sprite_2d.frame == 10 and not retracted:
-		if using_laser: return
 		var wave_right = GROUND_WAVE.instantiate()
 		add_child(wave_right)
 		wave_right.transform = marker_2d.transform
@@ -61,7 +57,6 @@ func _process(_delta: float) -> void:
 		retracted = true
 
 	if animated_sprite_2d.animation == "lightning" and animated_sprite_2d.frame == 11 and not lightninged:
-		if using_laser: return
 		var lightning_count = randi_range(4, 5) if secondphase else randi_range(2, 3)
 		for i in range(lightning_count):
 			var new_lightning = LIGHTNING.instantiate()
@@ -72,11 +67,9 @@ func _process(_delta: float) -> void:
 			await get_tree().create_timer(0.2).timeout
 
 func _on_retract_area_body_entered(_body: Node2D) -> void:
-	if using_laser: return
 	$retracttimer.start()
 
 func _on_retract_area_body_exited(_body: Node2D) -> void:
-	if using_laser: return
 	$retracttimer.start()
 	$retracttimer.stop()
 
@@ -85,14 +78,12 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 		current_state = state.secondphase
 		await get_tree().create_timer(1.6).timeout
 		secondphase = true
-		laser_timer.wait_time *= 0.75
-	else:
+	else: if not current_state == state.glow:
 		current_state = state.idle
 	retracted = false
 	lightninged = false
 
 func _on_lightningcooldown_timeout() -> void:
-	if using_laser: return
 	if current_state == state.idle and follow_area.overlaps_body($"../CharacterBody2D"):
 		current_state = state.lightning
 
@@ -106,46 +97,32 @@ func take_damage(dmg: int, _kb: Vector2) -> void:
 	await get_tree().create_timer(1.35).timeout
 
 func _on_retracttimer_timeout() -> void:
-	if using_laser: return
-	await animated_sprite_2d.animation_finished
-	current_state = state.retract
+	if current_state != state.glow:
+		await animated_sprite_2d.animation_finished
+		current_state = state.retract
 
 func _on_laser_timer_timeout() -> void:
-	if current_state == state.idle and not using_laser:
-		await animated_sprite_2d.animation_finished
+	await animated_sprite_2d.animation_finished
+	if secondphase == true:
 		current_state = state.glow
-		using_laser = true
-		await animated_sprite_2d.animation_finished
-
-		var pizza_angles = [deg_to_rad(120), deg_to_rad(240), deg_to_rad(360)]
-		if secondphase:
-			active_lasers.clear()
-			for angle in pizza_angles:
-				var new_laser = LASER.instantiate()
-				add_child(new_laser)
-				new_laser.global_position = lasermarker.global_position
-				new_laser.global_rotation = lasermarker.global_rotation + angle
-				active_lasers.append(new_laser)
-				new_laser.tree_exited.connect(func():
-					active_lasers.erase(new_laser)
-					if active_lasers.is_empty():
-						using_laser = false
-						current_state = state.idle
-				)
-		else:
-			var new_laser = LASER.instantiate()
-			add_child(new_laser)
-			new_laser.global_position = lasermarker.global_position
-			new_laser.global_rotation = lasermarker.global_rotation
-			active_lasers = [new_laser]
-			new_laser.tree_exited.connect(func():
-				active_lasers.erase(new_laser)
-				using_laser = false
-				current_state = state.idle
-			)
+		var new_laser = LASER.instantiate()
+		var new_laser_2 = LASER.instantiate()
+		add_child(new_laser)
+		new_laser.global_position = lasermarker.global_position
+		await get_tree().create_timer(1).timeout
+		add_child(new_laser_2)
+		new_laser_2.global_position = lasermarker.global_position
+		await get_tree().create_timer(5).timeout
+		current_state = state.idle
+	else:
+		current_state = state.glow
+		var new_laser = LASER.instantiate()
+		add_child(new_laser)
+		new_laser.global_position = lasermarker.global_position
+		await get_tree().create_timer(5).timeout
+		current_state = state.idle
 
 	if secondphase:
-		laser_timer.wait_time = randf_range(2.5, 4.5)
+		laser_timer.wait_time = randf_range(7, 8.5)
 	else:
-		laser_timer.wait_time = randf_range(5.0, 9.0)
-	laser_timer.start()
+		laser_timer.wait_time = randf_range(10.0, 12.0)
