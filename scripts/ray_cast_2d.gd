@@ -39,8 +39,6 @@ func set_is_casting(new_value: bool):
 		target_position = Vector2.ZERO
 
 
-
-
 func _on_timer_timeout() -> void:
 	tween = create_tween()
 	tween.tween_property(line_2d, "width", 0.0,growth_time).from_current()

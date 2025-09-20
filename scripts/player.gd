@@ -10,11 +10,10 @@ extends CharacterBody2D
 
 
 var SPEED := 450.0
-const JUMP_VELOCITY := -900.0
+const JUMP_VELOCITY := -1000.0
 const GRAVITY := 2000.0
 const FAST_FALL_MULTIPLIER := 2.0
-const JUMP_CUT_MULTIPLIER := 0.5
-var doublejumped := false
+const JUMP_CUT_MULTIPLIER := 0.55
 const DASH_SPEED := 1200
 var dashing := false
 var can_dash := true
@@ -72,17 +71,15 @@ func _physics_process(delta: float) -> void:
 		if current_state not in [state.attack, state.dash]:
 			current_state = state.jump
 	else:
-		doublejumped = false
 		if current_state not in [state.attack, state.dash]:
 			current_state = state.idle
 		velocity.y = 0
 		jumping = false
 
 	if Input.is_action_just_pressed("jump"):
-		if is_on_floor() or not doublejumped:
+		if is_on_floor():
 			velocity.y = JUMP_VELOCITY
-			if not is_on_floor(): doublejumped = true
-			trigger_jump_anim()
+			if not is_on_floor(): trigger_jump_anim()
 
 	if not Input.is_action_pressed("jump") and velocity.y < 0:
 		velocity.y *= JUMP_CUT_MULTIPLIER
