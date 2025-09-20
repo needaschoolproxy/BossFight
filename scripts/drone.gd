@@ -1,9 +1,9 @@
 extends CharacterBody2D
-@onready var character_body_2d: CharacterBody2D = $"../CharacterBody2D"
 @onready var ray_cast_2d: RayCast2D = $RayCast2D
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var marker_2d: Marker2D = $Marker2D
 @onready var bullettimer: Timer = $bullettimer
+@onready var character = get_parent().get_node("Node2D2/CharacterBody2D")
 
 var fireball = preload("res://scenes/fireball.tscn")
 
@@ -19,7 +19,7 @@ var speed = 12
 
 
 func _ready() -> void:
-	set_process(true)
+	pass
 
 func _process(_delta: float) -> void:
 	if knockback.length() > 10:
@@ -29,12 +29,12 @@ func _process(_delta: float) -> void:
 		state.idle: animated_sprite_2d.play("idle")
 		state.shoot:animated_sprite_2d.play("shoot")
 			
-	if character_body_2d.position.x < position.x:
+	if $CharacterBody2D.position.x < position.x:
 		$AnimatedSprite2D.flip_v = true
 	else: $AnimatedSprite2D.flip_v = false
 	
 	if health <= 0: return queue_free()
-	look_at(character_body_2d.position)
+	look_at($CharacterBody2D.position)
 	move_and_slide()
 
 

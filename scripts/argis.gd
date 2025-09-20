@@ -14,6 +14,7 @@ extends CharacterBody2D
 const GROUND_WAVE = preload("uid://drvmc8vusgft8")
 const LIGHTNING = preload("uid://r54vgnokvpri")
 const LASER = preload("uid://dd2ncwt7q3t87")
+const DRONE = preload("uid://cckilbnu307qv")
 
 enum state {idle, retract, lightning, glow, signaling, secondphase }
 var current_state = state.idle
@@ -110,6 +111,7 @@ func _on_laser_timer_timeout() -> void:
 	await animated_sprite_2d.animation_finished
 	if secondphase == true:
 		current_state = state.glow
+		await get_tree().create_timer(0.2).timeout
 		var new_laser = LASER.instantiate()
 		var new_laser_2 = LASER.instantiate()
 		add_child(new_laser)
@@ -121,6 +123,7 @@ func _on_laser_timer_timeout() -> void:
 		current_state = state.idle
 	else:
 		current_state = state.glow
+		await get_tree().create_timer(0.2).timeout
 		var new_laser = LASER.instantiate()
 		add_child(new_laser)
 		new_laser.global_position = lasermarker.global_position
@@ -128,6 +131,15 @@ func _on_laser_timer_timeout() -> void:
 		current_state = state.idle
 
 	if secondphase:
-		laser_timer.wait_time = randf_range(7, 8.5)
+		laser_timer.wait_time = randf_range(9, 10.5)
 	else:
-		laser_timer.wait_time = randf_range(10.0, 12.0)
+		laser_timer.wait_time = randf_range(12.0, 14.0)
+
+
+func _on_drone_summon_timeout() -> void:
+	if secondphase == true: 
+		await animated_sprite_2d.animation_finished
+		current_state = state.signaling
+		await get_tree().create_timer(0.5).timeout
+		var new_drone = DRONE.instantiate()
+		add_child(new_drone)
