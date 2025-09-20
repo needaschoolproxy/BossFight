@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+@onready var texture_progress_bar: CanvasLayer = $TextureProgressBar
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var marker_2d: Marker2D = $Marker2D
 @onready var marker_2d_2: Marker2D = $Marker2D2
@@ -14,7 +15,7 @@ const GROUND_WAVE = preload("uid://drvmc8vusgft8")
 const LIGHTNING = preload("uid://r54vgnokvpri")
 const LASER = preload("uid://dd2ncwt7q3t87")
 
-enum state { idle, retract, lightning, glow, signaling, secondphase }
+enum state {idle, retract, lightning, glow, signaling, secondphase }
 var current_state = state.idle
 var retracted = false
 var lightninged = false
@@ -27,6 +28,10 @@ func _ready() -> void:
 	pass
 
 func _process(_delta: float) -> void:
+	if follow_area.overlaps_body($"../CharacterBody2D"):
+		$TextureProgressBar.visible = true
+	else: $TextureProgressBar.visible = false
+	
 	match current_state:
 		state.idle:
 			animated_sprite_2d.play("idle")
@@ -90,7 +95,7 @@ func _on_lightningcooldown_timeout() -> void:
 func take_damage(dmg: int, _kb: Vector2) -> void:
 	health -= dmg
 	is_hurt = true
-	$AnimatedSprite2D.modulate = Color(1, 0.5, 0.5)
+	$AnimatedSprite2D.modulate = Color(1.25, 0.5, 0.5)
 	await get_tree().create_timer(HURT_DURATION).timeout
 	$AnimatedSprite2D.modulate = Color(1.0, 1.0, 1.0, 1.0)
 	is_hurt = false

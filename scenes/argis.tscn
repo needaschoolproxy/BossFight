@@ -544,11 +544,8 @@ wait_time = 15.0
 autostart = true
 
 [node name="TextureProgressBar" parent="." instance=ExtResource("3_8apko")]
-offset_left = -372.0
-offset_top = 149.0
-offset_right = -180.0
-offset_bottom = 161.0
 scale = Vector2(4, 4)
+transform = Transform2D(4, 0, 0, 4, 575, 550)
 
 [node name="Follow Area" type="Area2D" parent="."]
 position = Vector2(0, -20)

@@ -7,6 +7,7 @@ extends CharacterBody2D
 
 var fireball = preload("res://scenes/fireball.tscn")
 
+var knockback := Vector2.ZERO
 var health = 50
 var is_hurt = false
 const HURT_DURATION = 0.2
@@ -21,6 +22,9 @@ func _ready() -> void:
 	set_process(true)
 
 func _process(_delta: float) -> void:
+	if knockback.length() > 10:
+		velocity = knockback
+		knockback = knockback.move_toward(Vector2.ZERO, 500)
 	match current_state:
 		state.idle: animated_sprite_2d.play("idle")
 		state.shoot:animated_sprite_2d.play("shoot")
@@ -41,9 +45,7 @@ func _on_bullettimer_timeout() -> void:
 		shoot()
 		current_state = state.idle
 		glide()
-
-
-
+		
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	pass
@@ -53,6 +55,16 @@ func shoot():
 	owner.add_child(new_fireball)
 	new_fireball.global_transform = marker_2d.global_transform
 	
+	
+func take_damage(dmg: int, kb: Vector2) -> void:
+	health -= dmg
+	knockback = kb
+	is_hurt = true            
+	$AnimatedSprite2D.modulate = Color(1.25,0.5,0.5,)
+	await get_tree().create_timer(HURT_DURATION).timeout
+	$AnimatedSprite2D.modulate = Color(1,1,1)
+	is_hurt = false
+	await get_tree().create_timer(1).timeout
 
 
 func glide():

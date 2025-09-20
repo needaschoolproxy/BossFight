@@ -44,7 +44,7 @@ func take_damage(dmg: int, kb: Vector2) -> void:
 	knockback = kb
 	is_hurt = true
 	attack_timer.stop()              
-	sprite.modulate = Color(1,0.5,0.5)
+	sprite.modulate = Color(1.25,0.5,0.5)
 	await get_tree().create_timer(HURT_DURATION).timeout
 	sprite.modulate = Color(1,1,1)
 	is_hurt = false
