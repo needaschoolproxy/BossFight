@@ -130,7 +130,7 @@ shape = SubResource("RectangleShape2D_n7g4i")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 position = Vector2(0, -4)
-target_position = Vector2(0, 4)
+target_position = Vector2(0, 5)
 
 [node name="LightningSfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_ybhjs")

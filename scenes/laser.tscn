@@ -9,6 +9,7 @@ colors = PackedColorArray(0.88172317, 0, 0.37615314, 1, 1, 1, 1, 1)
 colors = PackedColorArray(1, 1, 1, 1, 0.88235295, 0, 0.3764706, 1)
 
 [node name="Laser" type="RayCast2D"]
+rotation = -1.5707964
 target_position = Vector2(200, 0)
 script = ExtResource("1_xmihv")
 

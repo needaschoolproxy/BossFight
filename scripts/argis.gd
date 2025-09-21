@@ -20,10 +20,11 @@ enum state {idle, retract, lightning, glow, signaling, secondphase }
 var current_state = state.idle
 var retracted = false
 var lightninged = false
-var health = 1000
+var health = 1500
 var is_hurt = false
 const HURT_DURATION = 0.1
 var secondphase = false
+var laseractive = false
 
 func _ready() -> void:
 	pass
@@ -71,6 +72,8 @@ func _process(_delta: float) -> void:
 			new_lightning.position.y = position.y + 125
 			lightninged = true
 			await get_tree().create_timer(0.2).timeout
+		
+
 
 func _on_retract_area_body_entered(_body: Node2D) -> void:
 	$retracttimer.start()
@@ -80,7 +83,7 @@ func _on_retract_area_body_exited(_body: Node2D) -> void:
 	$retracttimer.stop()
 
 func _on_animated_sprite_2d_animation_finished() -> void:
-	if health <= 500 and not secondphase:
+	if health <= 800 and not secondphase:
 		current_state = state.secondphase
 		await get_tree().create_timer(1.6).timeout
 		secondphase = true
@@ -90,7 +93,7 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 	lightninged = false
 
 func _on_lightningcooldown_timeout() -> void:
-	if current_state == state.idle and follow_area.overlaps_body($"../CharacterBody2D"):
+	if current_state == state.idle and follow_area.overlaps_body($"../CharacterBody2D") and laseractive == false:
 		current_state = state.lightning
 
 func take_damage(dmg: int, _kb: Vector2) -> void:
@@ -103,7 +106,7 @@ func take_damage(dmg: int, _kb: Vector2) -> void:
 	await get_tree().create_timer(1.35).timeout
 
 func _on_retracttimer_timeout() -> void:
-	if current_state != state.glow:
+	if laseractive == false:
 		await animated_sprite_2d.animation_finished
 		current_state = state.retract
 
@@ -112,22 +115,29 @@ func _on_laser_timer_timeout() -> void:
 	if secondphase == true:
 		current_state = state.glow
 		await get_tree().create_timer(0.2).timeout
+		laseractive = true
 		var new_laser = LASER.instantiate()
 		var new_laser_2 = LASER.instantiate()
 		add_child(new_laser)
+		current_state = state.glow
 		new_laser.global_position = lasermarker.global_position
 		await get_tree().create_timer(1).timeout
+		current_state = state.glow
 		add_child(new_laser_2)
 		new_laser_2.global_position = lasermarker.global_position
 		await get_tree().create_timer(5).timeout
+		laseractive = false
 		current_state = state.idle
 	else:
 		current_state = state.glow
 		await get_tree().create_timer(0.2).timeout
+		laseractive = true
 		var new_laser = LASER.instantiate()
 		add_child(new_laser)
+		current_state = state.glow
 		new_laser.global_position = lasermarker.global_position
 		await get_tree().create_timer(5).timeout
+		laseractive = false
 		current_state = state.idle
 
 	if secondphase:
@@ -137,9 +147,10 @@ func _on_laser_timer_timeout() -> void:
 
 
 func _on_drone_summon_timeout() -> void:
-	if secondphase == true: 
-		await animated_sprite_2d.animation_finished
-		current_state = state.signaling
-		await get_tree().create_timer(0.5).timeout
-		var new_drone = DRONE.instantiate()
-		add_child(new_drone)
+	pass
+	#if secondphase == true: 
+		#await animated_sprite_2d.animation_finished
+		#current_state = state.signaling
+		#await get_tree().create_timer(0.5).timeout
+		#var new_drone = DRONE.instantiate()
+		#add_child(new_drone)

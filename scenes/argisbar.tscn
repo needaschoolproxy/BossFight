@@ -5,21 +5,21 @@
 [ext_resource type="Texture2D" uid="uid://cqloosaokkkxr" path="res://assets/argishealth.png" id="2_vvpra"]
 
 [node name="CanvasLayer" type="CanvasLayer"]
-offset = Vector2(575, 550)
-transform = Transform2D(1, 0, 0, 1, 575, 550)
+offset = Vector2(575, 400)
+transform = Transform2D(1, 0, 0, 1, 575, 400)
 script = ExtResource("1_vvpra")
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="."]
 z_index = 5
-offset_left = -93.0
-offset_top = -5.0
-offset_right = 92.0
-offset_bottom = 7.0
-max_value = 1000.0
-value = 1000.0
+offset_left = -101.0
+offset_top = -10.0
+offset_right = 94.0
+offset_bottom = 2.0
+max_value = 1500.0
+value = 1500.0
 texture_progress = ExtResource("2_vvpra")
 
 [node name="Argishealthempty" type="Sprite2D" parent="TextureProgressBar"]
 z_index = -1
-position = Vector2(93, 5)
+position = Vector2(97, 5)
 texture = ExtResource("1_gan71")
