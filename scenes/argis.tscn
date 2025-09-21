@@ -537,6 +537,7 @@ wait_time = 15.0
 autostart = true
 
 [node name="TextureProgressBar" parent="." instance=ExtResource("3_8apko")]
+offset = Vector2(575, 550)
 scale = Vector2(4, 4)
 transform = Transform2D(4, 0, 0, 4, 575, 550)
 
