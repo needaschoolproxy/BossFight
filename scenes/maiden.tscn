@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://bf6u5bgyl18lc"]
+
+[ext_resource type="Script" uid="uid://b7eushrrxuqjj" path="res://scripts/maiden.gd" id="1_12xtk"]
+[ext_resource type="Texture2D" uid="uid://ca3rahja6g81n" path="res://assets/icon.svg" id="1_k6kga"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_12xtk"]
+radius = 62.0
+height = 166.0
+
+[node name="Maiden" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_12xtk")
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(0, 9.536743e-07)
+scale = Vector2(1, 1.328125)
+texture = ExtResource("1_k6kga")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_12xtk")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -64,7 +64,7 @@ func take_damage(dmg: int, kb: Vector2) -> void:
 	await get_tree().create_timer(HURT_DURATION).timeout
 	$AnimatedSprite2D.modulate = Color(1,1,1)
 	is_hurt = false
-	await get_tree().create_timer(1).timeout
+	
 
 
 func glide():
