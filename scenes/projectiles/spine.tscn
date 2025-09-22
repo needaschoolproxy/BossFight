@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://bggra0uuaiiwo"]
+
+[ext_resource type="Script" uid="uid://d3rh746dvqcni" path="res://scripts/spine.gd" id="1_1762t"]
+[ext_resource type="Texture2D" uid="uid://blm8xcinikwlw" path="res://assets/spineholder.png" id="2_42uu7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wt6do"]
+radius = 5.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wph7y"]
+radius = 6.0
+height = 52.0
+
+[node name="Spine" type="RigidBody2D"]
+rotation = 1.5707964
+script = ExtResource("1_1762t")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(-2, 22)
+shape = SubResource("CircleShape2D_wt6do")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(-2, 6)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CapsuleShape2D_wph7y")
+
+[node name="Spineholder" type="Sprite2D" parent="."]
+scale = Vector2(4, 4)
+texture = ExtResource("2_42uu7")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

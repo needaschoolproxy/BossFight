@@ -2,7 +2,7 @@ extends CharacterBody2D
 @onready var character = get_parent().get_parent().get_node("Node2D2/CharacterBody2D")
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var attack: RayCast2D = $Attack
-@export var fireball = preload("res://scenes/fireball.tscn")
+const FIREBALL = preload("uid://bbxovk7pemgq")
 @onready var attack_timer: Timer = $"Attack Timer"
 @onready var marker: Marker2D = $Marker2D
 @onready var follow: RayCast2D = $Follow
@@ -52,6 +52,6 @@ func take_damage(dmg: int, kb: Vector2) -> void:
 	attack_timer.start()
 func _on_attack_timer_timeout() -> void:
 	if state == State.ATTACK and not is_hurt:
-		var fb = fireball.instantiate()
+		var fb = FIREBALL.instantiate()
 		owner.add_child(fb)
 		fb.global_transform = marker.global_transform

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://c3esguxjka6nk"]
 
 [ext_resource type="Texture2D" uid="uid://4lccmy0kur7n" path="res://assets/argishealthempty.png" id="1_gan71"]
-[ext_resource type="Script" uid="uid://bdywd8nl3jw62" path="res://argisbar.gd" id="1_vvpra"]
+[ext_resource type="Script" uid="uid://bdywd8nl3jw62" path="res://scripts/argisbar.gd" id="1_vvpra"]
 [ext_resource type="Texture2D" uid="uid://cqloosaokkkxr" path="res://assets/argishealth.png" id="2_vvpra"]
 
 [node name="CanvasLayer" type="CanvasLayer"]

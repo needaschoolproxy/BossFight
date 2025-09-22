@@ -23,15 +23,24 @@ texture = ExtResource("1_k6kga")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_12xtk")
 
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(85, 0)
+gizmo_extents = 0.0
+
+[node name="ShootTimer" type="Timer" parent="."]
+autostart = true
+
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, 47.5)
 shape = SubResource("RectangleShape2D_12xtk")
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Stomptimer" type="Timer" parent="."]
 wait_time = 8.0
 autostart = true
 
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Stomptimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Stomptimer" to="." method="_on_stomptimer_timeout"]

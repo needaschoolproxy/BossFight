@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://gg27c6sxp2uj" path="res://scripts/argis.gd" id="1_eqhmj"]
 [ext_resource type="Texture2D" uid="uid://c148ap4syhcx0" path="res://assets/Argisspritesheet.png" id="1_n5l56"]
 [ext_resource type="Texture2D" uid="uid://xnupvra0xwj6" path="res://assets/2ndphase.png" id="2_mwiy4"]
-[ext_resource type="PackedScene" uid="uid://c3esguxjka6nk" path="res://scenes/argisbar.tscn" id="3_8apko"]
+[ext_resource type="PackedScene" uid="uid://c3esguxjka6nk" path="res://scenes/gui/argisbar.tscn" id="3_8apko"]
 [ext_resource type="AudioStream" uid="uid://cl5n4531f2uh1" path="res://assets/laser-beam-76426.mp3" id="6_701lf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n881m"]

@@ -14,7 +14,8 @@ extends CharacterBody2D
 const GROUND_WAVE = preload("uid://drvmc8vusgft8")
 const LIGHTNING = preload("uid://r54vgnokvpri")
 const LASER = preload("uid://dd2ncwt7q3t87")
-const DRONE = preload("res://scenes/drone.tscn")
+const DRONE = preload("uid://cckilbnu307qv")
+
 
 enum state {idle, retract, lightning, glow, signaling, secondphase }
 var current_state = state.idle

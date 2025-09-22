@@ -88,9 +88,11 @@ position = Vector2(3086, -256)
 
 [node name="CharacterBody2D2" parent="." instance=ExtResource("4_611at")]
 position = Vector2(-835, -977)
+fireball = null
 
 [node name="CharacterBody2D3" parent="." instance=ExtResource("4_611at")]
 position = Vector2(436, -975)
+fireball = null
 
 [node name="StaticBody2D" parent="." instance=ExtResource("7_1wiy7")]
 position = Vector2(684, -616)

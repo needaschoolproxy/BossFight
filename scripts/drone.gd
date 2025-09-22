@@ -5,7 +5,8 @@ extends CharacterBody2D
 @onready var bullettimer: Timer = $bullettimer
 @onready var character = get_parent().get_node("Node2D2/CharacterBody2D")
 
-var fireball = preload("res://scenes/fireball.tscn")
+const FIREBALL = preload("uid://bbxovk7pemgq")
+
 
 var knockback := Vector2.ZERO
 var health = 50
@@ -51,7 +52,7 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 	pass
 	
 func shoot():
-	var new_fireball = fireball.instantiate()
+	var new_fireball = FIREBALL.instantiate()
 	owner.add_child(new_fireball)
 	new_fireball.global_transform = marker_2d.global_transform
 	

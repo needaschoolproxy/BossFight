@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bbxovk7pemgq"]
 
-[ext_resource type="Script" uid="uid://smp5kidntxd4" path="res://scripts/fireball.gd" id="1_3s14c"]
+[ext_resource type="Script" uid="uid://smp5kidntxd4" path="res://scripts/fireball.gd" id="1_nx3os"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_3s14c"]
 
@@ -18,7 +18,7 @@ collision_layer = 0
 collision_mask = 0
 physics_material_override = SubResource("PhysicsMaterial_3s14c")
 gravity_scale = 0.0
-script = ExtResource("1_3s14c")
+script = ExtResource("1_nx3os")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_3s14c")
