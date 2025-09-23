@@ -1,8 +1,8 @@
 [gd_scene load_steps=20 format=3 uid="uid://r54vgnokvpri"]
 
 [ext_resource type="Script" uid="uid://cmh28qgyqblp5" path="res://scripts/lightning.gd" id="1_n7g4i"]
-[ext_resource type="Texture2D" uid="uid://6w8puphemojv" path="res://assets/lightning.png" id="2_n7g4i"]
-[ext_resource type="Texture2D" uid="uid://c5ho2kc254j60" path="res://assets/lightningwarning.png" id="3_gpx16"]
+[ext_resource type="Texture2D" uid="uid://6w8puphemojv" path="res://assets/Projectile/lightning.png" id="2_n7g4i"]
+[ext_resource type="Texture2D" uid="uid://c5ho2kc254j60" path="res://assets/Projectile/lightningwarning.png" id="3_gpx16"]
 [ext_resource type="AudioStream" uid="uid://7d56urxwu52v" path="res://assets/loud-thunder-192165.mp3" id="4_ybhjs"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n7g4i"]

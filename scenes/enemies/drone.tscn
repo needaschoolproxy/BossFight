@@ -1,7 +1,7 @@
 [gd_scene load_steps=17 format=3 uid="uid://cckilbnu307qv"]
 
 [ext_resource type="Script" uid="uid://68bqg76n7rsg" path="res://scripts/drone.gd" id="1_knnud"]
-[ext_resource type="Texture2D" uid="uid://cs1q3jum1mb17" path="res://assets/drone.png" id="2_knnud"]
+[ext_resource type="Texture2D" uid="uid://cs1q3jum1mb17" path="res://assets/Enemy/drone.png" id="2_knnud"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_knnud"]
 size = Vector2(79, 62)

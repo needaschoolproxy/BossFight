@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://djy8kcs5cimem"
-path="res://.godot/imported/death.png-198d3fb31567bbaa959322f68730ee59.ctex"
+uid="uid://cm7s4vfo15hpt"
+path="res://.godot/imported/emptybar.png-3ebfaf26941fcc7cd586d4add0827f0a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/death.png"
-dest_files=["res://.godot/imported/death.png-198d3fb31567bbaa959322f68730ee59.ctex"]
+source_file="res://assets/Ui/emptybar.png"
+dest_files=["res://.godot/imported/emptybar.png-3ebfaf26941fcc7cd586d4add0827f0a.ctex"]
 
 [params]
 

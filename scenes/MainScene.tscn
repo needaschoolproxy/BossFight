@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=4 uid="uid://dyw2pxdjvqjey"]
 
 [ext_resource type="PackedScene" uid="uid://cj3seshwyd1wo" path="res://scenes/player.tscn" id="1_echbf"]
-[ext_resource type="Texture2D" uid="uid://c44q2xkfjufp6" path="res://assets/terrain.png" id="2_ibiss"]
+[ext_resource type="Texture2D" uid="uid://c44q2xkfjufp6" path="res://assets/Terrain/terrain.png" id="2_ibiss"]
 [ext_resource type="PackedScene" uid="uid://cvwomjshaa7sm" path="res://scenes/enemies/enemy.tscn" id="3_c6dvc"]
 [ext_resource type="PackedScene" uid="uid://dx74a04rdac3q" path="res://scenes/enemies/skullenemy.tscn" id="4_611at"]
 [ext_resource type="PackedScene" uid="uid://ejyhsof48xyh" path="res://scenes/enemies/argis.tscn" id="5_k24pf"]
@@ -99,4 +99,4 @@ position = Vector2(684, -616)
 position = Vector2(-1309, -429)
 
 [node name="Maiden" parent="." instance=ExtResource("7_u1u68")]
-position = Vector2(1663, -679)
+position = Vector2(1683, -473)

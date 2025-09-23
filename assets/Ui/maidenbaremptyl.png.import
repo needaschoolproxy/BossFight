@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c5ho2kc254j60"
-path="res://.godot/imported/lightningwarning.png-1c0ffbc9ec5a28fc6d91ccc2c4d4ad3c.ctex"
+uid="uid://c70ar342xgurl"
+path="res://.godot/imported/maidenbaremptyl.png-235bff614ff6bd0a2b165d34749b8640.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/lightningwarning.png"
-dest_files=["res://.godot/imported/lightningwarning.png-1c0ffbc9ec5a28fc6d91ccc2c4d4ad3c.ctex"]
+source_file="res://assets/Ui/maidenbaremptyl.png"
+dest_files=["res://.godot/imported/maidenbaremptyl.png-235bff614ff6bd0a2b165d34749b8640.ctex"]
 
 [params]
 

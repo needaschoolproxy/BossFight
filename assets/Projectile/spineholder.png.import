@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqloosaokkkxr"
-path="res://.godot/imported/argishealth.png-dbbdb38e9b34bb0a2e9678aff0d89e6e.ctex"
+uid="uid://blm8xcinikwlw"
+path="res://.godot/imported/spineholder.png-59e28048ab0181b5bcab2dadaba3ec5a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/argishealth.png"
-dest_files=["res://.godot/imported/argishealth.png-dbbdb38e9b34bb0a2e9678aff0d89e6e.ctex"]
+source_file="res://assets/Projectile/spineholder.png"
+dest_files=["res://.godot/imported/spineholder.png-59e28048ab0181b5bcab2dadaba3ec5a.ctex"]
 
 [params]
 

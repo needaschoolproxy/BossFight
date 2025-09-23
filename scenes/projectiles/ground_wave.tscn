@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://drvmc8vusgft8"]
 
-[ext_resource type="Texture2D" uid="uid://dccvfwo67xfde" path="res://assets/groundwave.png" id="1_2l4l6"]
+[ext_resource type="Texture2D" uid="uid://dccvfwo67xfde" path="res://assets/Projectile/groundwave.png" id="1_2l4l6"]
 [ext_resource type="Script" uid="uid://gurlk6i2vmuk" path="res://scripts/ground_wave.gd" id="1_wwb60"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wwb60"]

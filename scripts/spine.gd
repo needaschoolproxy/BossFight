@@ -1,4 +1,6 @@
 extends RigidBody2D
+@onready var area_2d: Area2D = $Area2D
+
 
 
 const SPEED = 500
@@ -10,7 +12,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	position += transform.x * SPEED * delta
-	
 
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	pass
+
+func _on_timer_timeout() -> void:
+	queue_free()

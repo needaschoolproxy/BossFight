@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://dlxtsjl624h24"]
+
+[ext_resource type="Texture2D" uid="uid://bbelyhcvrxdw6" path="res://assets/Ui/maidenbarfull.png" id="1_m37jn"]
+[ext_resource type="Texture2D" uid="uid://c70ar342xgurl" path="res://assets/Ui/maidenbaremptyl.png" id="2_wkvpe"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+z_index = 1
+offset_left = -316.0
+offset_top = -20.0
+offset_right = -158.0
+offset_bottom = 20.0
+scale = Vector2(4, 4)
+max_value = 900.0
+value = 900.0
+texture_progress = ExtResource("1_m37jn")
+
+[node name="Maidenbaremptyl" type="Sprite2D" parent="."]
+scale = Vector2(4, 4)
+texture = ExtResource("2_wkvpe")

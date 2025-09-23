@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://blm8xcinikwlw"
-path="res://.godot/imported/spineholder.png-34d11a40cddce83b257c7cb4649e4303.ctex"
+uid="uid://c148ap4syhcx0"
+path="res://.godot/imported/Argisspritesheet.png-123cfc671481715ae5e0a5cba99c0a54.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/spineholder.png"
-dest_files=["res://.godot/imported/spineholder.png-34d11a40cddce83b257c7cb4649e4303.ctex"]
+source_file="res://assets/Enemy/Argisspritesheet.png"
+dest_files=["res://.godot/imported/Argisspritesheet.png-123cfc671481715ae5e0a5cba99c0a54.ctex"]
 
 [params]
 

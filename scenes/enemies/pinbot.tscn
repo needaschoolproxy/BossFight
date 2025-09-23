@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://b7i10k1t4r5c2"]
+
+[ext_resource type="Texture2D" uid="uid://c2e2lnuu3ffmo" path="res://assets/Enemy/Pinbottop.png" id="1_t4ufl"]
+[ext_resource type="Texture2D" uid="uid://bk5uydcgqv1l2" path="res://assets/Enemy/Pinbotbottom.png" id="3_mj43k"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u1vie"]
+radius = 19.0
+
+[sub_resource type="GDScript" id="GDScript_cb2fr"]
+script/source = "extends Sprite2D
+@onready var character_body_2d: CharacterBody2D = $CharacterBody2D
+
+
+func _process(delta: float) -> void:
+	look_at($CharacterBody2D.position)
+"
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(0, -13)
+polygon = PackedVector2Array(-26, 23, -10, 15, 10, 15, 26, 24, 26, 42, 10, 23, 2, 42, -10, 23, -26, 43, -26, 23)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -13)
+shape = SubResource("CircleShape2D_u1vie")
+
+[node name="Pinbottop" type="Sprite2D" parent="."]
+position = Vector2(0, -12)
+scale = Vector2(4, 4)
+texture = ExtResource("1_t4ufl")
+script = SubResource("GDScript_cb2fr")
+
+[node name="Pinbotbottom" type="Sprite2D" parent="."]
+scale = Vector2(4, 4)
+texture = ExtResource("3_mj43k")

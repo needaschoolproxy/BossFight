@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bx8kmk6sk4pb8"
-path="res://.godot/imported/platform.png-2814e55efba316ed5bf039a99ddbc9b5.ctex"
+uid="uid://xnupvra0xwj6"
+path="res://.godot/imported/2ndphase.png-390df7d77f2a5bb18215925b47d3952c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/platform.png"
-dest_files=["res://.godot/imported/platform.png-2814e55efba316ed5bf039a99ddbc9b5.ctex"]
+source_file="res://assets/Enemy/2ndphase.png"
+dest_files=["res://.godot/imported/2ndphase.png-390df7d77f2a5bb18215925b47d3952c.ctex"]
 
 [params]
 

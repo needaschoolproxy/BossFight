@@ -43,18 +43,19 @@ func take_damage(dmg: int, kb: Vector2) -> void:
 	is_hurt = false
 
 #
-#func _on_shoot_timer_timeout() -> void:
-	#current_state = state.shoot
-	#for i in randi_range(5,30):
-		#var new_spine = SPINE.instantiate()
-		#add_child(new_spine)
-		#new_spine.transform = $Marker2D.transform
-		#new_spine.rotation = rotation_degrees
-		#await get_tree().create_timer(0.02).timeout
-	#current_state = state.idle
+func _on_shoot_timer_timeout() -> void:
+	if current_state == state.idle:
+		current_state = state.shoot
+		for i in randi_range(8,20):
+			var new_spine = SPINE.instantiate()
+			owner.add_child(new_spine)
+			new_spine.global_transform = $Marker2D.global_transform
+			new_spine.rotation = rotation + randf_range(-0.5,0.5)
+			await get_tree().create_timer(0.02).timeout
+		current_state = state.idle
 
 func _on_stomptimer_timeout() -> void:
-	for i in randi_range(1,2):
+	for i in randi_range(1,3):
 		current_state = state.stomp
 		await get_tree().create_timer(1).timeout
 		current_state = state.idle

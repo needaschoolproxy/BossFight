@@ -24,10 +24,11 @@ texture = ExtResource("1_k6kga")
 shape = SubResource("CapsuleShape2D_12xtk")
 
 [node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(85, 0)
+position = Vector2(120, 0)
 gizmo_extents = 0.0
 
 [node name="ShootTimer" type="Timer" parent="."]
+wait_time = 6.0
 autostart = true
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -42,5 +43,5 @@ autostart = true
 
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="timeout" from="Stomptimer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Stomptimer" to="." method="_on_stomptimer_timeout"]
+[connection signal="timeout" from="Stomptimer" to="." method="_on_timer_timeout"]

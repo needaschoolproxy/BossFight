@@ -14,8 +14,8 @@ load_path = "res://.godot/imported/fireball.png-ed7e398784db012da0948497b00257d1
 radius = 16.1245
 
 [node name="RigidBody2D" type="RigidBody2D"]
-collision_layer = 0
-collision_mask = 0
+collision_layer = 2
+collision_mask = 2
 physics_material_override = SubResource("PhysicsMaterial_3s14c")
 gravity_scale = 0.0
 script = ExtResource("1_nx3os")
@@ -28,14 +28,15 @@ scale = Vector2(4, 4)
 texture = SubResource("CompressedTexture2D_3s14c")
 
 [node name="Area2D" type="Area2D" parent="."]
-collision_layer = 4
-collision_mask = 4
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_1gl40")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 5.0
+autostart = true
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
