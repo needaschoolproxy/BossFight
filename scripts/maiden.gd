@@ -2,6 +2,8 @@ extends CharacterBody2D
 @onready var character_body_2d: CharacterBody2D = $"../CharacterBody2D"
 @onready var icon: Sprite2D = $Icon
 @onready var marker_2d: Marker2D = $Marker2D
+@onready var canvas_layer: CanvasLayer = $CanvasLayer
+@onready var follow_area: Area2D = $FollowArea
 
 const HURT_DURATION = 0.1
 const SPEED = 2.5
@@ -28,7 +30,10 @@ func _process(delta: float) -> void:
 			position.y = lerp(position.y,character_body_2d.position.y,STOMP_SPEED * delta)
 		state.shoot:
 			look_at($"../CharacterBody2D".position)
-			
+		
+	if follow_area.overlaps_body($"../CharacterBody2D"):
+		$CanvasLayer.visible = true
+	
 	if health <= 0: return queue_free()
 	move_and_slide()
 

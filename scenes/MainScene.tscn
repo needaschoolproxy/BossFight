@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://dyw2pxdjvqjey"]
+[gd_scene load_steps=9 format=4 uid="uid://dyw2pxdjvqjey"]
 
 [ext_resource type="PackedScene" uid="uid://cj3seshwyd1wo" path="res://scenes/player.tscn" id="1_echbf"]
 [ext_resource type="Texture2D" uid="uid://c44q2xkfjufp6" path="res://assets/Terrain/terrain.png" id="2_ibiss"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://dx74a04rdac3q" path="res://scenes/enemies/skullenemy.tscn" id="4_611at"]
 [ext_resource type="PackedScene" uid="uid://ejyhsof48xyh" path="res://scenes/enemies/argis.tscn" id="5_k24pf"]
 [ext_resource type="PackedScene" uid="uid://1misoblcjpny" path="res://scenes/platform.tscn" id="7_1wiy7"]
-[ext_resource type="PackedScene" uid="uid://bf6u5bgyl18lc" path="res://scenes/enemies/maiden.tscn" id="7_u1u68"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c6dvc"]
 texture = ExtResource("2_ibiss")
@@ -97,6 +96,3 @@ position = Vector2(684, -616)
 
 [node name="StaticBody2D2" parent="." instance=ExtResource("7_1wiy7")]
 position = Vector2(-1309, -429)
-
-[node name="Maiden" parent="." instance=ExtResource("7_u1u68")]
-position = Vector2(1683, -473)

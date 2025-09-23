@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bf6u5bgyl18lc"]
+[gd_scene load_steps=7 format=3 uid="uid://bf6u5bgyl18lc"]
 
 [ext_resource type="Script" uid="uid://b7eushrrxuqjj" path="res://scripts/maiden.gd" id="1_12xtk"]
 [ext_resource type="Texture2D" uid="uid://ca3rahja6g81n" path="res://assets/icon.svg" id="1_k6kga"]
+[ext_resource type="PackedScene" uid="uid://dlxtsjl624h24" path="res://scenes/gui/maidenbar.tscn" id="2_uj27n"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_12xtk"]
 radius = 62.0
@@ -10,10 +11,17 @@ height = 166.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_12xtk"]
 size = Vector2(124, 71)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_qymnd"]
+radius = 822.1192
+
 [node name="Maiden" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_12xtk")
+
+[node name="CanvasLayer" parent="." instance=ExtResource("2_uj27n")]
+offset = Vector2(600, 500)
+transform = Transform2D(1, 0, 0, 1, 600, 500)
 
 [node name="Icon" type="Sprite2D" parent="."]
 position = Vector2(0, 9.536743e-07)
@@ -40,6 +48,11 @@ shape = SubResource("RectangleShape2D_12xtk")
 [node name="Stomptimer" type="Timer" parent="."]
 wait_time = 8.0
 autostart = true
+
+[node name="FollowArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FollowArea"]
+shape = SubResource("CircleShape2D_qymnd")
 
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
