@@ -11,8 +11,8 @@ const STOMP_SPEED = 4
 var health = 900
 var knockback := Vector2.ZERO
 var is_hurt = false
-enum state{idle,stomp,shoot}
-var current_state = state.idle
+enum state{inactive,idle,stomp,shoot}
+var current_state = state.inactive
 
 const SPINE = preload("uid://bggra0uuaiiwo")
 
@@ -33,6 +33,7 @@ func _process(delta: float) -> void:
 		
 	if follow_area.overlaps_body($"../CharacterBody2D"):
 		$CanvasLayer.visible = true
+	else:$CanvasLayer.visible = false
 	
 	if health <= 0: return queue_free()
 	move_and_slide()
@@ -65,3 +66,7 @@ func _on_stomptimer_timeout() -> void:
 		await get_tree().create_timer(1).timeout
 		current_state = state.idle
 		await get_tree().create_timer(0.75).timeout
+
+
+func _on_follow_area_body_entered(body: Node2D) -> void:
+	current_state = state.idle
