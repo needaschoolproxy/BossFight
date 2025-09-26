@@ -9,7 +9,7 @@ radius = 62.0
 height = 166.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_12xtk"]
-size = Vector2(118, 71)
+size = Vector2(99, 72)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qymnd"]
 radius = 822.1192
@@ -42,7 +42,7 @@ autostart = true
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, 47.5)
+position = Vector2(0.5, 48)
 shape = SubResource("RectangleShape2D_12xtk")
 
 [node name="Stomptimer" type="Timer" parent="."]
