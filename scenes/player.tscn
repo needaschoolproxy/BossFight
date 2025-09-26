@@ -430,7 +430,7 @@ position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_g2els")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.8, 0.8)
+zoom = Vector2(0.75, 0.75)
 
 [node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="."]
 z_index = 50

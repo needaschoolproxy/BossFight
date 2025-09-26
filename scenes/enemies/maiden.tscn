@@ -9,7 +9,7 @@ radius = 62.0
 height = 166.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_12xtk"]
-size = Vector2(124, 71)
+size = Vector2(118, 71)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qymnd"]
 radius = 822.1192
@@ -49,6 +49,10 @@ shape = SubResource("RectangleShape2D_12xtk")
 wait_time = 8.0
 autostart = true
 
+[node name="Swooptimer" type="Timer" parent="."]
+wait_time = 12.0
+autostart = true
+
 [node name="FollowArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FollowArea"]
@@ -58,4 +62,5 @@ shape = SubResource("CircleShape2D_qymnd")
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="Stomptimer" to="." method="_on_stomptimer_timeout"]
 [connection signal="timeout" from="Stomptimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Swooptimer" to="." method="_on_swooptimer_timeout"]
 [connection signal="body_entered" from="FollowArea" to="." method="_on_follow_area_body_entered"]
