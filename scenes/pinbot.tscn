@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://2ureyq4qt3mb"]
+
+[ext_resource type="Texture2D" uid="uid://c2e2lnuu3ffmo" path="res://assets/Enemy/Pinbottop.png" id="1_cy6om"]
+[ext_resource type="Texture2D" uid="uid://bk5uydcgqv1l2" path="res://assets/Enemy/Pinbotbottom.png" id="2_t4ufl"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xhoft"]
+radius = 5.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mj43k"]
+radius = 3.0
+height = 14.0
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+
+[node name="Pinbottop" type="Sprite2D" parent="."]
+position = Vector2(0, -5)
+texture = ExtResource("1_cy6om")
+
+[node name="Pinbotbottom" type="Sprite2D" parent="."]
+position = Vector2(0, -2)
+texture = ExtResource("2_t4ufl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_xhoft")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_mj43k")
