@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://dyw2pxdjvqjey"]
+[gd_scene load_steps=11 format=4 uid="uid://dyw2pxdjvqjey"]
 
 [ext_resource type="PackedScene" uid="uid://cj3seshwyd1wo" path="res://scenes/player.tscn" id="1_echbf"]
 [ext_resource type="Texture2D" uid="uid://c44q2xkfjufp6" path="res://assets/Terrain/terrain.png" id="2_ibiss"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://ejyhsof48xyh" path="res://scenes/enemies/argis.tscn" id="5_k24pf"]
 [ext_resource type="PackedScene" uid="uid://1misoblcjpny" path="res://scenes/platform.tscn" id="7_1wiy7"]
 [ext_resource type="PackedScene" uid="uid://bf6u5bgyl18lc" path="res://scenes/enemies/maiden.tscn" id="7_u1u68"]
+[ext_resource type="PackedScene" uid="uid://2ureyq4qt3mb" path="res://scenes/enemies/pinbot.tscn" id="8_x537r"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c6dvc"]
 texture = ExtResource("2_ibiss")
@@ -96,7 +97,11 @@ position = Vector2(436, -975)
 position = Vector2(684, -616)
 
 [node name="StaticBody2D2" parent="." instance=ExtResource("7_1wiy7")]
+visible = false
 position = Vector2(-1309, -429)
 
 [node name="Maiden" parent="." instance=ExtResource("7_u1u68")]
-position = Vector2(2389, -1023)
+position = Vector2(2144, -1042)
+
+[node name="CharacterBody2D4" parent="." instance=ExtResource("8_x537r")]
+position = Vector2(1117, -306)

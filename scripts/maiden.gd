@@ -88,8 +88,8 @@ func _on_area_2d_body_entered(_body: Node2D) -> void:
 		$"../CharacterBody2D".health -= 5
 
 
-#func _on_swooptimer_timeout() -> void:
-	#if current_state != state.inactive:
-		#current_state = state.swoopready
-		#await get_tree().create_timer(1.5).timeout
-		#current_state = state.swoopattack
+func _on_swooptimer_timeout() -> void:
+	if current_state == state.idle:
+		current_state = state.swoopready
+		await get_tree().create_timer(1.5).timeout
+		current_state = state.swoopattack
